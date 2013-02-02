@@ -50,10 +50,13 @@ public class Board {
     private void createShips() {
         System.out.println("Creating Ships...");
         this.ships.add(new AirCraft());
+        this.ships.add(new Submarine());
+        this.ships.add(new Boat());
         this.ships.add(new Boat());
         this.ships.add(new Cruiser());
+        this.ships.add(new Cruiser());
         this.ships.add(new Destroyer());
-        this.ships.add(new Submarine());
+        this.ships.add(new Destroyer());
         this.shipsAvailable = this.ships.size();
     }
 

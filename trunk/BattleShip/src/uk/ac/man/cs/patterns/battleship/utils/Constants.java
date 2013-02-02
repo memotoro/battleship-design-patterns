@@ -40,8 +40,8 @@ public class Constants {
     public static final int SHOOT_STATE_MISSED = 0;
     public static final int SHOOT_STATE_SUCCESSFUL = 1;
 
-    public static final int BOARD_SIZE_WIDTH = 10;
-    public static final int BOARD_SIZE_HEIGHT = 10;
+    public static final int BOARD_SIZE_WIDTH = 12;
+    public static final int BOARD_SIZE_HEIGHT = 12;
 
     public static final int BOARD_DIRECTION_HORIZONTAL = 0;
     public static final int BOARD_DIRECTION_VERTICAL = 1;
