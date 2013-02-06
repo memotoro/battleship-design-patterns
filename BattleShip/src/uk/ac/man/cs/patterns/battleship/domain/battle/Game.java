@@ -20,7 +20,6 @@ public class Game {
     private Player playerAttacked;
 
     public Game() {
-        System.out.println("Creating Game...");
         this.state = Constants.GAME_STATE_STARTING;
         this.players = new Player[2];
     }
@@ -37,15 +36,6 @@ public class Game {
             validateShipsAvailable();
             swapPlayers();
         } else if (this.state == Constants.GAME_STATE_FINISHED) {
-            System.out.println("Game Over: ");
-            System.out.println("Ships available PC: " + this.players[0].getBoard().getShipsAvailable());
-            System.out.println("Ships available HUMAN: " + this.players[1].getBoard().getShipsAvailable());
-            if (this.players[0].getBoard().getShipsAvailable() > this.players[1].getBoard().getShipsAvailable()) {
-                System.out.println("PC Win !!!: ");
-            } else {
-                System.out.println("HUMAN Win !!!: ");
-            }
-            System.exit(1);
         }
     }
 
@@ -61,7 +51,7 @@ public class Game {
         Position position = null;
         if (this.state == Constants.GAME_STATE_PLAYING) {
             if (validatePlayerInTurn(playerReceived)) {
-                Turn turn = new Turn(new Date(), this.playerAttacking);
+                Turn turn = new Turn(this.playerAttacking);
                 boolean validShoot = false;
                 while (!validShoot) {
                     Shoot shoot = turn.createShoot(this.playerAttacked.getBoard().availablePosition());
@@ -90,7 +80,7 @@ public class Game {
     public void createAttack(Player playerReceived, Position positionReceived) throws BattleShipException {
         if (this.state == Constants.GAME_STATE_PLAYING) {
             if (validatePlayerInTurn(playerReceived)) {
-                Turn turn = new Turn(new Date(), this.playerAttacking);
+                Turn turn = new Turn(this.playerAttacking);
                 Shoot shoot = turn.createShoot(positionReceived);
                 if (this.playerAttacked.getBoard().validateShootPosition(shoot.getPosition())) {
                     if (this.playerAttacked.getBoard().validateShootSuccessful(shoot.getPosition())) {

@@ -12,12 +12,10 @@ import java.util.Date;
  */
 public class Turn {
 
-    private Date timeStamp;
     private Shoot shoot;
     private Player player;
 
-    public Turn(Date timeStamp, Player player) {
-        this.timeStamp = timeStamp;
+    public Turn(Player player) {
         this.player = player;
     }
 
@@ -40,13 +38,5 @@ public class Turn {
 
     public void setShoot(Shoot shoot) {
         this.shoot = shoot;
-    }
-
-    public Date getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
     }
 }
