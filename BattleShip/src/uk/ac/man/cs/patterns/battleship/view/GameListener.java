@@ -19,7 +19,7 @@ import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
  *
- * @author memotoro
+ * @author Guillermo Antonio Toro Bayona
  */
 public class GameListener implements ActionListener {
 

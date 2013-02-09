@@ -15,7 +15,7 @@ import javax.swing.JDialog;
 
 /**
  *
- * @author memotoro
+ * @author Guillermo Antonio Toro Bayona
  */
 public class MessageDialog extends JDialog {
     /** A return status code - returned if Cancel button has been pressed */

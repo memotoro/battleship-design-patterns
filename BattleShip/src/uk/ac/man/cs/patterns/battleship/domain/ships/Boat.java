@@ -7,11 +7,15 @@ package uk.ac.man.cs.patterns.battleship.domain.ships;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
- *
- * @author memotoro
+ * Boat.
+ * @author Guillermo Antonio Toro Bayona
  */
 public class Boat extends Ship {
 
+    /**
+     * Constructor.
+     * Call the super with specific size for the ship.
+     */
     public Boat() {
         super(Constants.SHIP_SIZE_BOAT);
     }

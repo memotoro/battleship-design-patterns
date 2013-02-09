@@ -23,7 +23,7 @@ import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
  *
- * @author memotoro
+ * @author Guillermo Antonio Toro Bayona
  */
 public class BoardPanel extends javax.swing.JPanel {
 
@@ -50,9 +50,9 @@ public class BoardPanel extends javax.swing.JPanel {
                     JButton jButton = new JButton();
                     jButton.setPreferredSize(new Dimension(10, 10));
                     ImageIcon img = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
-                    if (this.player.getBoard().getPositionsOccupied().contains(position)) {
-                        img = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
-                    }
+//                    if (this.player.getBoard().getPositionsOccupied().contains(position)) {
+//                        img = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
+//                    }
                     jButton.setIcon(img);
                     jButton.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
                     jButton.addActionListener(this.gameListener);

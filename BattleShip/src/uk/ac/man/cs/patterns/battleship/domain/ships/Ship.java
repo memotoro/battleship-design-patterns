@@ -10,47 +10,92 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author memotoro
+ * Ship.
+ * This class represent a ship as a general concept. Concrete ships are related with Ship
+ * with inheritance relationship.
+ * @author Guillermo Antonio Toro Bayona
  */
 public abstract class Ship {
 
+    /**
+     * Integer that represent the size
+     */
     private Integer size;
+    /*
+     * Integer that represent the state
+     */
     private Integer state;
+    /**
+     * List of Position that the ship is occupying in the board.
+     */
     private List<Position> positionsOccupied;
+    /**
+     * List of Position from the ships that have been attacked.
+     */
     private List<Position> positionsAttacked;
 
+    /**
+     * Constructor.
+     * Receive a specific size.
+     * @param size
+     */
     public Ship(Integer size) {
         this.size = size;
+        // Set the initial state for the ship as OK.
         this.state = Constants.SHIP_STATE_OK;
+        // Initialize the arrays of positions.
         this.positionsOccupied = new ArrayList<Position>();
         this.positionsAttacked = new ArrayList<Position>();
     }
 
+    /**
+     * Method that validate if one position attacked is occupied by the ship.
+     * @param positionAttacked Position to be attacked
+     * @return boolean with the validation
+     */
     public boolean validatePositionAttacked(Position positionAttacked) {
+        // Validate if the position attacked is part of the positions occupied.
         if (this.positionsOccupied.contains(positionAttacked)) {
+            // Remove the position from the occupied and copy to the list of attacked positions.
             this.positionsOccupied.remove(positionAttacked);
             this.positionsAttacked.add(positionAttacked);
+            // Validate if the ships was destroyed.
             if (this.positionsOccupied.isEmpty()
                     && this.positionsAttacked.size() == this.size) {
+                // Set the state Destroyed
                 this.state = Constants.SHIP_STATE_DETROYED;
             } else {
-                this.state = Constants.SHIP_STATE_HITTED;
+                // Set the state attacked
+                this.state = Constants.SHIP_STATE_ATTACKED;
             }
+            // Return validation
             return true;
         } else {
+            // Return validation
             return false;
         }
     }
 
+    /**
+     * Get the State of the ship.
+     * @return
+     */
     public Integer getState() {
         return state;
     }
 
+    /**
+     * Get the size of the ship.
+     * @return
+     */
     public Integer getSize() {
         return size;
     }
 
+    /**
+     * Set the positions occupied by one ship.
+     * @param positionsOccupied
+     */
     public void setPositionsOccupied(List<Position> positionsOccupied) {
         this.positionsOccupied = positionsOccupied;
     }

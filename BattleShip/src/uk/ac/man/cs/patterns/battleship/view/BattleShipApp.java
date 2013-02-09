@@ -7,7 +7,7 @@ package uk.ac.man.cs.patterns.battleship.view;
 
 /**
  *
- * @author memotoro
+ * @author Guillermo Antonio Toro Bayona
  */
 public class BattleShipApp {
 
