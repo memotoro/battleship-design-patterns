@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
+import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
  *
@@ -39,26 +40,26 @@ public class BoardPanel extends javax.swing.JPanel {
 
     private void initializeBoardPanel() {
         this.jLabelPlayerName.setText(this.player.getName());
-        this.jLabelShipsAvailable.setText(String.valueOf(this.player.getBoard().getShipsAvailable()));
-        this.jLabelNotificationMessage.setText(Constants.GAME_MESSAGE_ACTIONS);
+        this.jLabelShipsAvailable.setText(this.player.getBoard().getShipsAvailable().toString());
+        this.jLabelNotificationMessage.setText(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_008));
         this.jPanelGridPositions.setLayout(new GridLayout(Constants.BOARD_SIZE_WIDTH, Constants.BOARD_SIZE_HEIGHT));
-        if (this.player.getName().contains(Constants.GAME_PLAYER_PC)) {
+        if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_PC)) {
             for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
                 for (int x = 0; x < Constants.BOARD_SIZE_WIDTH; x++) {
                     Position position = new Position(x, y);
                     JButton jButton = new JButton();
                     jButton.setPreferredSize(new Dimension(10, 10));
                     ImageIcon img = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
-//                    if (this.player.getBoard().getPositionsOccupied().contains(position)) {
-//                        img = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
-//                    }
+                    if (this.player.getBoard().getPositionsOccupied().contains(position)) {
+                        img = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
+                    }
                     jButton.setIcon(img);
-                    jButton.setName(this.player.getName() + Constants.GAME_COORDS_SEPARATOR + x + Constants.GAME_COORDS_SEPARATOR + y);
+                    jButton.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
                     jButton.addActionListener(this.gameListener);
                     this.jPanelGridPositions.add(jButton);
                 }
             }
-        } else {
+        } else if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_HUMAN)) {
             for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
                 for (int x = 0; x < Constants.BOARD_SIZE_WIDTH; x++) {
                     Position position = new Position(x, y);
@@ -68,19 +69,19 @@ public class BoardPanel extends javax.swing.JPanel {
                         img = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
                     }
                     jButton.setIcon(img);
-                    jButton.setName(this.player.getName() + Constants.GAME_COORDS_SEPARATOR + x + Constants.GAME_COORDS_SEPARATOR + y);
+                    jButton.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
                     this.jPanelGridPositions.add(jButton);
                 }
             }
         }
     }
 
-    public JButton getJButtonByName(String playerName, int coordinateX, int coordinateY) {
+    public JButton getJButtonByName(String playerName, Integer coordinateX, Integer coordinateY) {
         JButton jButton = null;
         for (Component component : this.jPanelGridPositions.getComponents()) {
             if (component instanceof JButton) {
                 jButton = (JButton) component;
-                if (jButton.getName().equals(playerName + Constants.GAME_COORDS_SEPARATOR + String.valueOf(coordinateX) + Constants.GAME_COORDS_SEPARATOR + String.valueOf(coordinateY))) {
+                if (jButton.getName().equals(playerName + Constants.GAME_TEXT_SEPARATOR + coordinateX + Constants.GAME_TEXT_SEPARATOR + coordinateY)) {
                     break;
                 }
             }
@@ -89,7 +90,7 @@ public class BoardPanel extends javax.swing.JPanel {
     }
 
     public void setNotificationMessage(String message) {
-        this.jLabelNotificationMessage.setText(Constants.GAME_MESSAGE_ACTIONS + message);
+        this.jLabelNotificationMessage.setText(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_008) + message);
     }
 
     public Player getPlayer() {
@@ -98,8 +99,8 @@ public class BoardPanel extends javax.swing.JPanel {
 
     public JLabel getjLabelShipsAvailable() {
         return jLabelShipsAvailable;
-    }   
-   
+    }
+
     /**
      * This method is called from within the constructor to
      * initialise the form.

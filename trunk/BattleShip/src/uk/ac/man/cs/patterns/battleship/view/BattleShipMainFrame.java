@@ -14,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
  *

@@ -10,38 +10,28 @@ package uk.ac.man.cs.patterns.battleship.domain.battle;
  */
 public class Position {
 
-    private int coordinateX;
-    private int coordinateY;
+    private Integer coordinateX;
+    private Integer coordinateY;
 
-    public Position(int coordinateX, int coordinateY) {
+    public Position(Integer coordinateX, Integer coordinateY) {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
     }
 
-    public int getCoordinateX() {
+    public Integer getCoordinateX() {
         return coordinateX;
     }
 
-    public void setCoordinateX(int coordinateX) {
+    public void setCoordinateX(Integer coordinateX) {
         this.coordinateX = coordinateX;
     }
 
-    public int getCoordinateY() {
+    public Integer getCoordinateY() {
         return coordinateY;
     }
 
-    public void setCoordinateY(int coordinateY) {
+    public void setCoordinateY(Integer coordinateY) {
         this.coordinateY = coordinateY;
-    }
-
-    public String toString(){
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("(");
-        stringBuffer.append(this.coordinateX);
-        stringBuffer.append(",");
-        stringBuffer.append(this.coordinateY);
-        stringBuffer.append(")");
-        return stringBuffer.toString();
     }
 
     @Override
