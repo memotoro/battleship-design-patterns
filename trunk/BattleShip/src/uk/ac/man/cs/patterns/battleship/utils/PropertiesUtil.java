@@ -2,34 +2,37 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uk.ac.man.cs.patterns.battleship.utils;
 
 import java.util.Properties;
 
 /**
- *
- * @author memotoro
+ * PropertiesUtil is a class useful to read information from the files by key.
+ * Use singleton pattern in order to avoid more that one instance of the class have access to the file.
+ * Singleton Patterns.
+ * @author Guillermo Antonio Toro Bayona
  */
 public class PropertiesUtil {
-/**
-     * Properties
+
+    /**
+     * Properties to read file by key.
      */
     private Properties properties;
-
+    /**
+     * Static variable of the same type of the class.
+     * Feature of singleton.
+     */
     private static PropertiesUtil propertiesUtil;
 
-    public static PropertiesUtil getInstance(){
-        if(propertiesUtil == null){
-           propertiesUtil = new PropertiesUtil();
-        }
-        return propertiesUtil;
-    }
-
-    private PropertiesUtil(){
+    /**
+     * Constructor.
+     * Call the properties and load the specific file.
+     */
+    private PropertiesUtil() {
         try {
             // Load the properties
             this.properties = new Properties();
+            // Load the file with specific path.
             this.properties.load(PropertiesUtil.class.getResourceAsStream(Constants.GAME_PATH_FILE_MESSAGES));
         } catch (Exception ex) {
             // print the trace
@@ -37,7 +40,28 @@ public class PropertiesUtil {
         }
     }
 
-    public String getMessageByCode(String code){
+    /**
+     * Method that give access to the only instance of the class.
+     * Initialise the variable if is not created.
+     * Feature of the singleton pattern.
+     * @return
+     */
+    public static PropertiesUtil getInstance() {
+        // Validation
+        if (propertiesUtil == null) {
+            // Initialize the variable
+            propertiesUtil = new PropertiesUtil();
+        }
+        // Return the reference
+        return propertiesUtil;
+    }
+
+    /**
+     * Method to get one specific message with a key.
+     * @param code String with the key
+     * @return String with the description of the key.
+     */
+    public String getMessageByCode(String code) {
         return this.properties.getProperty(code);
     }
 }

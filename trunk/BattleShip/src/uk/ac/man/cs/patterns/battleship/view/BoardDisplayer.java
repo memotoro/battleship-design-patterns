@@ -13,7 +13,7 @@ import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
  *
- * @author memotoro
+ * @author Guillermo Antonio Toro Bayona
  */
 public class BoardDisplayer {
 
