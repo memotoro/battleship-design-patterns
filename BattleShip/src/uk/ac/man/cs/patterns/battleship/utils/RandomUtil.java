@@ -15,7 +15,7 @@ public class RandomUtil {
 
     private static Random randomGenerator;
 
-    public static int generateRandom(int maxValue){
+    public static Integer generateRandom(Integer maxValue){
         randomGenerator = new Random();
         return randomGenerator.nextInt(maxValue);
     }

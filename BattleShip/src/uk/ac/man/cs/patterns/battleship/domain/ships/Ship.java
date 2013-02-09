@@ -15,12 +15,12 @@ import java.util.List;
  */
 public abstract class Ship {
 
-    private int size;
-    private int state;
+    private Integer size;
+    private Integer state;
     private List<Position> positionsOccupied;
     private List<Position> positionsAttacked;
 
-    public Ship(int size) {
+    public Ship(Integer size) {
         this.size = size;
         this.state = Constants.SHIP_STATE_OK;
         this.positionsOccupied = new ArrayList<Position>();
@@ -43,35 +43,15 @@ public abstract class Ship {
         }
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public int getSize() {
+    public Integer getSize() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public List<Position> getPositionsOccupied() {
-        return positionsOccupied;
     }
 
     public void setPositionsOccupied(List<Position> positionsOccupied) {
         this.positionsOccupied = positionsOccupied;
-    }
-
-    public List<Position> getPositionsAttacked() {
-        return positionsAttacked;
-    }
-
-    public void setPositionsAttacked(List<Position> positionsAttacked) {
-        this.positionsAttacked = positionsAttacked;
     }
 }

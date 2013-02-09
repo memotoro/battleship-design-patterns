@@ -4,32 +4,35 @@
  */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
+import uk.ac.man.cs.patterns.battleship.domain.battle.strategy.PositionSearching;
+
 /**
  *
  * @author memotoro
  */
 public class Shoot {
 
-    private int state;
+    private Integer state;
     private Position position;
+    private PositionSearching positionSearching;
 
-    public Shoot(Position position) {
-        this.position = position;
+    public Shoot(PositionSearching positionSearching) {
+        this.positionSearching = positionSearching;
+    }
+
+    public void searchPosition() {
+        this.position = this.positionSearching.searchPositionToAttack();
     }
 
     public Position getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 }

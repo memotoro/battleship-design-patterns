@@ -4,8 +4,9 @@
  */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
+import java.util.ArrayList;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
-import java.util.Date;
+import java.util.List;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
@@ -14,107 +15,69 @@ import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
  */
 public class Game {
 
-    private int state;
-    private Player[] players;
+    private Integer state;
+    private List<Player> players;
     private Player playerAttacking;
     private Player playerAttacked;
 
     public Game() {
-        this.state = Constants.GAME_STATE_STARTING;
-        this.players = new Player[2];
+        this.state = Constants.GAME_STATE_PLAYING;
+        this.players = new ArrayList<Player>();
+        this.createGame();
     }
 
-    public void processState() {
-        if (this.state == Constants.GAME_STATE_STARTING) {
-            this.players[0] = new Player(Constants.GAME_PLAYER_MAN);
-            this.players[1] = new Player(Constants.GAME_PLAYER_PC);
-            this.state = Constants.GAME_STATE_PLAYING;
-            this.playerAttacking = this.players[0];
-            this.playerAttacked = this.players[1];
-        } else if (this.state == Constants.GAME_STATE_PLAYING) {
-//            attack();
-            validateShipsAvailable();
-            swapPlayers();
-        } else if (this.state == Constants.GAME_STATE_FINISHED) {
-        }
+    private void createGame() {
+        this.state = Constants.GAME_STATE_PLAYING;
+        this.players.add(new Player(Constants.GAME_PLAYER_NAME_HUMAN, Constants.GAME_PLAYER_TYPE_HUMAN));
+        this.players.add(new Player(Constants.GAME_PLAYER_NAME_PC, Constants.GAME_PLAYER_TYPE_PC));
+        this.playerAttacking = this.players.get(0);
+        this.playerAttacked = this.players.get(1);
     }
 
-    private boolean validatePlayerInTurn(Player playerReceived) {
-        if (playerReceived == this.playerAttacking) {
-            return true;
-        } else {
-            return false;
-        }
+    public void attack(Player playerReceived, Position positionReceived) throws BattleShipException {
+        this.validateGameStatus();
+        this.validatePlayerInTurn(playerReceived);
+        this.playAttack(playerReceived, positionReceived);
+        this.validateBoardOpponent();
+        this.swapPlayers();
     }
 
-    public Position createAttack(Player playerReceived) throws BattleShipException {
-        Position position = null;
-        if (this.state == Constants.GAME_STATE_PLAYING) {
-            if (validatePlayerInTurn(playerReceived)) {
-                Turn turn = new Turn(this.playerAttacking);
-                boolean validShoot = false;
-                while (!validShoot) {
-                    Shoot shoot = turn.createShoot(this.playerAttacked.getBoard().availablePosition());
-                    if (this.playerAttacked.getBoard().validateShootPosition(shoot.getPosition())) {
-                        validShoot = true;
-                        position = shoot.getPosition();
-                        if (this.playerAttacked.getBoard().validateShootSuccessful(shoot.getPosition())) {
-                            shoot.setState(Constants.SHOOT_STATE_SUCCESSFUL);
-                        } else {
-                            shoot.setState(Constants.SHOOT_STATE_MISSED);
-                        }
-                    }
-                }
-                this.playerAttacking.getPreviousTurns().add(turn);
-                this.validateShipsAvailable();
-                this.swapPlayers();
-            } else {
-                throw new BattleShipException(Constants.CODE_001);
-            }
-        } else {
+    private void validateGameStatus() throws BattleShipException {
+        if (this.state == Constants.GAME_STATE_FINISHED) {
             throw new BattleShipException(Constants.CODE_005);
         }
-        return position;
     }
 
-    public void createAttack(Player playerReceived, Position positionReceived) throws BattleShipException {
-        if (this.state == Constants.GAME_STATE_PLAYING) {
-            if (validatePlayerInTurn(playerReceived)) {
-                Turn turn = new Turn(this.playerAttacking);
-                Shoot shoot = turn.createShoot(positionReceived);
-                if (this.playerAttacked.getBoard().validateShootPosition(shoot.getPosition())) {
-                    if (this.playerAttacked.getBoard().validateShootSuccessful(shoot.getPosition())) {
-                        shoot.setState(Constants.SHOOT_STATE_SUCCESSFUL);
-                    } else {
-                        shoot.setState(Constants.SHOOT_STATE_MISSED);
-                    }
-                    this.playerAttacking.getPreviousTurns().add(turn);
-                    this.validateShipsAvailable();
-                    this.swapPlayers();
-                } else {
-                    throw new BattleShipException(Constants.CODE_002);
-                }
-            } else {
-                throw new BattleShipException(Constants.CODE_001);
-            }
-        } else {
-            throw new BattleShipException(Constants.CODE_005);
+    private void validatePlayerInTurn(Player playerReceived) throws BattleShipException {
+        if (playerReceived == this.playerAttacked) {
+            throw new BattleShipException(Constants.CODE_003);
+        }
+    }
+
+    private void playAttack(Player playerReceived, Position positionReceived) throws BattleShipException {
+        Turn turn = null;
+        if (playerReceived.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
+            turn = new HumanTurn();
+        } else if (playerReceived.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
+            turn = new PcTurn();
+        }
+        turn.setPlayers(this.playerAttacking, this.playerAttacked);
+        turn.playTurn(positionReceived);
+    }
+
+    private void validateBoardOpponent() {
+        if (this.playerAttacked.getBoard().getShipsAvailable() == 0) {
+            this.state = Constants.GAME_STATE_FINISHED;
         }
     }
 
     private void swapPlayers() {
-        if (this.playerAttacking == this.players[0]) {
-            this.playerAttacking = this.players[1];
-            this.playerAttacked = this.players[0];
+        if (this.playerAttacking == this.players.get(0)) {
+            this.playerAttacking = this.players.get(1);
+            this.playerAttacked = this.players.get(0);
         } else {
-            this.playerAttacking = this.players[0];
-            this.playerAttacked = this.players[1];
-        }
-    }
-
-    private void validateShipsAvailable() {
-        if (this.playerAttacked.getBoard().getShipsAvailable() == 0) {
-            this.state = Constants.GAME_STATE_FINISHED;
+            this.playerAttacking = this.players.get(0);
+            this.playerAttacked = this.players.get(1);
         }
     }
 
@@ -122,31 +85,11 @@ public class Game {
         return playerAttacked;
     }
 
-    public void setPlayerAttacked(Player playerAttacked) {
-        this.playerAttacked = playerAttacked;
-    }
-
     public Player getPlayerAttacking() {
         return playerAttacking;
     }
 
-    public void setPlayerAttacking(Player playerAttacking) {
-        this.playerAttacking = playerAttacking;
-    }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Player[] players) {
-        this.players = players;
-    }
-
-    public int getState() {
+    public Integer getState() {
         return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
     }
 }

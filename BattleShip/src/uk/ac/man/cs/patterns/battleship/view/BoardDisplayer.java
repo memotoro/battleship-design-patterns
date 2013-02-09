@@ -17,8 +17,8 @@ import uk.ac.man.cs.patterns.battleship.utils.Constants;
  */
 public class BoardDisplayer {
 
-    private BoardPanel boardPlayerPanel;
-    private BoardPanel boardPcPanel;
+    private BoardPanel boardPlayer1Panel;
+    private BoardPanel boardPlayer2Panel;
     private BattleShipMainFrame battleShipMainFrame;
     private GameListener gameListener;
 
@@ -31,21 +31,21 @@ public class BoardDisplayer {
         this.battleShipMainFrame.getjPanelGame().removeAll();
         this.battleShipMainFrame.getjPanelGame().setLayout(new GridLayout(1, 0));
 
-        this.boardPlayerPanel = new BoardPanel(this.gameListener, game.getPlayerAttacking());
-        this.battleShipMainFrame.getjPanelGame().add(this.boardPlayerPanel);
-        this.boardPcPanel = new BoardPanel(this.gameListener, game.getPlayerAttacked());
-        this.battleShipMainFrame.getjPanelGame().add(this.boardPcPanel);
+        this.boardPlayer1Panel = new BoardPanel(this.gameListener, game.getPlayerAttacking());
+        this.battleShipMainFrame.getjPanelGame().add(this.boardPlayer1Panel);
+        this.boardPlayer2Panel = new BoardPanel(this.gameListener, game.getPlayerAttacked());
+        this.battleShipMainFrame.getjPanelGame().add(this.boardPlayer2Panel);
 
         this.battleShipMainFrame.pack();
         this.battleShipMainFrame.repaint();
     }
 
-    public void updateImageIconInButton(Player player, Integer coordinateX, Integer coordinateY, int shootState) {
+    public void updateImageIconInButton(Player player, Integer coordinateX, Integer coordinateY, Integer shootState) {
         JButton jButton = null;
-        if (player.getName().equals(Constants.GAME_PLAYER_MAN)) {
-            jButton = this.boardPlayerPanel.getJButtonByName(player.getName(), coordinateX, coordinateY);
+        if (player.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
+            jButton = this.boardPlayer1Panel.getJButtonByName(player.getName(), coordinateX, coordinateY);
         } else {
-            jButton = this.boardPcPanel.getJButtonByName(player.getName(), coordinateX, coordinateY);
+            jButton = this.boardPlayer2Panel.getJButtonByName(player.getName(), coordinateX, coordinateY);
         }
         if (shootState == Constants.SHOOT_STATE_MISSED) {
             jButton.setIcon(new ImageIcon(Constants.GAME_PATH_IMAGE_MISSED));
@@ -55,44 +55,44 @@ public class BoardDisplayer {
     }
 
     public void updateNotificationMessage(Player player, String message) {
-        if (player.getName().equals(Constants.GAME_PLAYER_MAN)) {
-            this.boardPlayerPanel.setNotificationMessage(message);
+        if (player.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
+            this.boardPlayer1Panel.setNotificationMessage(message);
         } else {
-            this.boardPcPanel.setNotificationMessage(message);
+            this.boardPlayer2Panel.setNotificationMessage(message);
         }
     }
 
-    public void updateShipsAvailable(Player player, int shipAvailable) {
-        if (player.getName().equals(Constants.GAME_PLAYER_MAN)) {
-            this.boardPlayerPanel.getjLabelShipsAvailable().setText(String.valueOf(shipAvailable));
+    public void updateShipsAvailable(Player player, Integer shipAvailable) {
+        if (player.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
+            this.boardPlayer1Panel.getjLabelShipsAvailable().setText(shipAvailable.toString());
         } else {
-            this.boardPcPanel.getjLabelShipsAvailable().setText(String.valueOf(shipAvailable));
+            this.boardPlayer2Panel.getjLabelShipsAvailable().setText(shipAvailable.toString());
         }
     }
 
     public Player getOpponentPlayerByName(String playerName) {
-        if (playerName.equals(Constants.GAME_PLAYER_MAN)) {
-            return this.boardPlayerPanel.getPlayer();
+        if (playerName.equals(this.boardPlayer1Panel.getPlayer().getName())) {
+            return this.boardPlayer1Panel.getPlayer();
         } else {
-            return this.boardPcPanel.getPlayer();
+            return this.boardPlayer2Panel.getPlayer();
         }
     }
 
     public Player getActivePlayerByOpponentName(String playerName) {
-        if (playerName.equals(Constants.GAME_PLAYER_MAN)) {
-            return this.boardPcPanel.getPlayer();
+        if (playerName.equals(this.boardPlayer1Panel.getPlayer().getName())) {
+            return this.boardPlayer2Panel.getPlayer();
         } else {
-            return this.boardPlayerPanel.getPlayer();
+            return this.boardPlayer1Panel.getPlayer();
         }
     }
 
-    public int displayPopUpConfirmationMessage(String message){
+    public Integer displayPopUpConfirmationMessage(String message) {
         MessageDialog messageDialog = new MessageDialog(this.battleShipMainFrame, true, true, message);
         messageDialog.setVisible(true);
         return messageDialog.getReturnStatus();
     }
 
-    public void displayPopUpMessage(String message){
+    public void displayPopUpMessage(String message) {
         new MessageDialog(this.battleShipMainFrame, true, false, message).setVisible(true);
     }
 }

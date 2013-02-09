@@ -33,32 +33,30 @@ public class GameListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e != null) {
-            if (e.getSource() instanceof JButton) {
-                JButton jButtonExecuted = (JButton) e.getSource();
-                String[] infoButton = jButtonExecuted.getName().split(Constants.GAME_COORDS_SEPARATOR);
-                String opponentPlayerName = infoButton[0];
-                Integer coordinateX = Integer.valueOf(infoButton[1]);
-                Integer coordinateY = Integer.valueOf(infoButton[2]);
-                Player opponentPlayer = this.boardDisplayer.getOpponentPlayerByName(opponentPlayerName);
-                Player activePlayer = this.boardDisplayer.getActivePlayerByOpponentName(opponentPlayerName);
-                try {
-                    Position position = this.battleShipController.attack(activePlayer, coordinateX, coordinateY);
-                    this.processAction(activePlayer, opponentPlayer, position);
-                    this.actionEvent(activePlayer.getName());
-                } catch (BattleShipException ex) {
-                    this.boardDisplayer.updateNotificationMessage(opponentPlayer, ex.getDescription());
-                }
-            } else if (e.getSource() instanceof JMenuItem) {
-                if (this.game != null) {
-                    if (this.boardDisplayer.displayPopUpConfirmationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_007)) == 1) {
-                        this.game = battleShipController.startNewGame();
-                        this.boardDisplayer.drawInitialBoard(this.game);
-                    }
-                } else {
+        if (e.getSource() instanceof JButton) {
+            JButton jButtonExecuted = (JButton) e.getSource();
+            String[] infoButton = jButtonExecuted.getName().split(Constants.GAME_TEXT_SEPARATOR);
+            String opponentPlayerName = infoButton[0];
+            Integer coordinateX = Integer.valueOf(infoButton[1]);
+            Integer coordinateY = Integer.valueOf(infoButton[2]);
+            Player opponentPlayer = this.boardDisplayer.getOpponentPlayerByName(opponentPlayerName);
+            Player activePlayer = this.boardDisplayer.getActivePlayerByOpponentName(opponentPlayerName);
+            try {
+                Position position = this.battleShipController.attack(activePlayer, coordinateX, coordinateY);
+                this.processAction(activePlayer, opponentPlayer, position);
+                this.actionEvent(activePlayer.getName());
+            } catch (BattleShipException ex) {
+                this.boardDisplayer.updateNotificationMessage(opponentPlayer, ex.getDescription());
+            }
+        } else if (e.getSource() instanceof JMenuItem) {
+            if (this.game != null) {
+                if (this.boardDisplayer.displayPopUpConfirmationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_007)) == 1) {
                     this.game = battleShipController.startNewGame();
                     this.boardDisplayer.drawInitialBoard(this.game);
                 }
+            } else {
+                this.game = battleShipController.startNewGame();
+                this.boardDisplayer.drawInitialBoard(this.game);
             }
         }
     }
@@ -67,7 +65,7 @@ public class GameListener implements ActionListener {
         Player activePlayer = this.boardDisplayer.getActivePlayerByOpponentName(opponentPlayerName);
         Player opponentPlayer = this.boardDisplayer.getOpponentPlayerByName(opponentPlayerName);
         try {
-            Position position = this.battleShipController.attack(activePlayer);
+            Position position = this.battleShipController.attack(activePlayer, null, null);
             this.processAction(activePlayer, opponentPlayer, position);
         } catch (BattleShipException ex) {
             this.boardDisplayer.updateNotificationMessage(opponentPlayer, ex.getDescription());
@@ -82,6 +80,8 @@ public class GameListener implements ActionListener {
             this.boardDisplayer.updateNotificationMessage(activePlayer, PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
         } else if (this.battleShipController.gameStatus() == Constants.GAME_STATE_FINISHED) {
             this.boardDisplayer.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + activePlayer.getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
+            this.boardDisplayer.updateNotificationMessage(activePlayer, PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005));
+            this.boardDisplayer.updateNotificationMessage(opponentPlayer, PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005));
         }
     }
 }

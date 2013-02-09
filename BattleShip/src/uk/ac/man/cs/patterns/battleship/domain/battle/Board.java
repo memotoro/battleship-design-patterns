@@ -22,7 +22,7 @@ import uk.ac.man.cs.patterns.battleship.domain.ships.Boat;
 public class Board {
 
     private List<Ship> ships;
-    private int shipsAvailable;
+    private Integer shipsAvailable;
     private List<Position> positions;
     private List<Position> positionsVisited;
     private List<Position> positionsOccupied;
@@ -38,7 +38,6 @@ public class Board {
     }
 
     private void initializeBoard() {
-        System.out.println("Creating Board...");
         for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
             for (int x = 0; x < Constants.BOARD_SIZE_WIDTH; x++) {
                 Position position = new Position(x, y);
@@ -48,7 +47,6 @@ public class Board {
     }
 
     private void createShips() {
-        System.out.println("Creating Ships...");
         this.ships.add(new AirCraft());
         this.ships.add(new Submarine());
         this.ships.add(new Boat());
@@ -61,14 +59,13 @@ public class Board {
     }
 
     private void localizeShipsInBoard() {
-        System.out.println("Localizing Ships...");        
         for (Ship ship : this.ships) {
             boolean shipAllocated = false;
             List<Position> possiblePositions = new ArrayList<Position>();
             while (!shipAllocated) {
-                int randomPosition = RandomUtil.generateRandom(2);
-                int x = RandomUtil.generateRandom(Constants.BOARD_SIZE_WIDTH);
-                int y = RandomUtil.generateRandom(Constants.BOARD_SIZE_HEIGHT);
+                Integer randomPosition = RandomUtil.generateRandom(2);
+                Integer x = RandomUtil.generateRandom(Constants.BOARD_SIZE_WIDTH);
+                Integer y = RandomUtil.generateRandom(Constants.BOARD_SIZE_HEIGHT);
                 for (int i = 0; i < ship.getSize(); i++) {
                     Position position = new Position(x, y);
                     if (randomPosition == Constants.BOARD_DIRECTION_HORIZONTAL) {
@@ -91,9 +88,17 @@ public class Board {
         }
     }
 
-    public boolean validateShootPosition(Position positionToValidate) {
+    public boolean validatePosition(Position positionToValidate) {
         if (this.positions.contains(positionToValidate)
                 && !this.positionsVisited.contains(positionToValidate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateShootPosition(Position positionToValidate) {
+        if (this.validatePosition(positionToValidate)) {
             this.positions.remove(positionToValidate);
             this.positionsVisited.add(positionToValidate);
             return true;
@@ -116,33 +121,17 @@ public class Board {
         return validationShootSuccessful;
     }
 
-    public Position availablePosition() {
+    public Position getAvailablePosition() {
         int index = RandomUtil.generateRandom(this.positions.size());
         Position positionAvailable = this.positions.get(index);
         return new Position(positionAvailable.getCoordinateX(), positionAvailable.getCoordinateY());
     }
 
-    public int getShipsAvailable() {
+    public Integer getShipsAvailable() {
         return shipsAvailable;
-    }
-
-    public void setShipsAvailable(int shipsAvailable) {
-        this.shipsAvailable = shipsAvailable;
-    }
-
-    public List<Ship> getShips() {
-        return ships;
-    }
-
-    public void setShips(List<Ship> ships) {
-        this.ships = ships;
     }
 
     public List<Position> getPositionsOccupied() {
         return positionsOccupied;
-    }
-
-    public void setPositionsOccupied(List<Position> positionsOccupied) {
-        this.positionsOccupied = positionsOccupied;
     }
 }
