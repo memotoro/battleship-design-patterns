@@ -10,96 +10,58 @@
  */
 package uk.ac.man.cs.patterns.battleship.view;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
-import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
- *
+ * Class that represent a board for each player
  * @author Guillermo Antonio Toro Bayona
  */
-public class BoardPanel extends javax.swing.JPanel {
+public class BoardPanel extends JPanel {
 
-    private GameListener gameListener;
+    /**
+     * Reference to a player owner of the board
+     */
     private Player player;
 
-    /** Creates new form BoardPanel */
-    public BoardPanel(GameListener gameListener, Player player) {
+    /**
+     * Constructor.
+     * @param gameListener GameListener reference
+     * @param player Reference to player
+     */
+    public BoardPanel(Player player) {
         initComponents();
-        this.gameListener = gameListener;
         this.player = player;
-        initializeBoardPanel();
     }
 
-    private void initializeBoardPanel() {
-        this.jLabelPlayerName.setText(this.player.getName());
-        this.jLabelShipsAvailable.setText(this.player.getBoard().getShipsAvailable().toString());
-        this.jLabelNotificationMessage.setText(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_008));
-        this.jPanelGridPositions.setLayout(new GridLayout(Constants.BOARD_SIZE_WIDTH, Constants.BOARD_SIZE_HEIGHT));
-        // labels
-//        this.jLabelAirCraft.setText(Constants.SHIP_NAME_AIRCRAFT + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_AIRCRAFT + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelAirCraft.setForeground(Color.green);
-//        this.jLabelSubmarine.setText(Constants.SHIP_NAME_SUBMARINE + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_AIRCRAFT + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelSubmarine.setForeground(Color.green);
-//        this.jLabelDestroyer1.setText(Constants.SHIP_NAME_DESTROYER_1 + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_DESTROYER + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelDestroyer1.setForeground(Color.green);
-//        this.jLabelDestroyer2.setText(Constants.SHIP_NAME_DESTROYER_2 + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_DESTROYER + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelDestroyer2.setForeground(Color.green);
-//        this.jLabelCruiser1.setText(Constants.SHIP_NAME_CRUISER_1 + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_CRUISER + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelCruiser1.setForeground(Color.green);
-//        this.jLabelCruiser2.setText(Constants.SHIP_NAME_CRUISER_2 + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_CRUISER + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelCruiser2.setForeground(Color.green);
-//        this.jLabelBoat1.setText(Constants.SHIP_NAME_BOAT_1 + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_BOAT + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelBoat1.setForeground(Color.green);
-//        this.jLabelBoat2.setText(Constants.SHIP_NAME_BOAT_2 + Constants.GAME_TEXT_OPEN_BRAKET + Constants.SHIP_SIZE_BOAT + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_011) + Constants.GAME_TEXT_CLOSE_BRAKET);
-        this.jLabelBoat2.setForeground(Color.green);
-        if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_PC)) {
-            for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
-                for (int x = 0; x < Constants.BOARD_SIZE_WIDTH; x++) {
-                    JButton jButtonInGrid = new JButton();
-                    jButtonInGrid.setPreferredSize(new Dimension(10, 10));
-                    ImageIcon imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
-                    jButtonInGrid.setIcon(imageIcon);
-                    jButtonInGrid.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
-                    jButtonInGrid.addActionListener(this.gameListener);
-                    this.jPanelGridPositions.add(jButtonInGrid);
-                }
-            }
-        } else if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_HUMAN)) {
-            for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
-                for (int x = 0; x < Constants.BOARD_SIZE_WIDTH; x++) {
-                    Position position = new Position(x, y);
-                    JButton jButtonInGrid = new JButton();
-                    ImageIcon imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
-                    if (this.player.getBoard().getPositionsOccupied().contains(position)) {
-                        imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
-                    }
-                    jButtonInGrid.setIcon(imageIcon);
-                    jButtonInGrid.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
-                    this.jPanelGridPositions.add(jButtonInGrid);
-                }
-            }
-        }
-    }
-
+    /**
+     * Method that retrieve one button based on the name
+     * @param playerName Player name
+     * @param coordinateX Integer coordinate x
+     * @param coordinateY Integer coordinate y
+     * @return JButton
+     */
     public JButton getJButtonByName(String playerName, Integer coordinateX, Integer coordinateY) {
+        // Reference to the button
         JButton jButtonSpecificName = null;
+        // Iterate for all the GUI componentes in the grid
         for (Component guiComponent : this.jPanelGridPositions.getComponents()) {
+            // Validate if is a JButton
             if (guiComponent instanceof JButton) {
+                // Take the object reference
                 jButtonSpecificName = (JButton) guiComponent;
+                // Validate the name
                 if (jButtonSpecificName.getName().equals(playerName + Constants.GAME_TEXT_SEPARATOR + coordinateX + Constants.GAME_TEXT_SEPARATOR + coordinateY)) {
                     break;
                 }
             }
         }
+        // Return the object
         return jButtonSpecificName;
     }
 
@@ -145,6 +107,14 @@ public class BoardPanel extends javax.swing.JPanel {
 
     public JLabel getjLabelSubmarine() {
         return jLabelSubmarine;
+    }
+
+    public JLabel getjLabelPlayerName() {
+        return jLabelPlayerName;
+    }
+
+    public JPanel getjPanelGridPositions() {
+        return jPanelGridPositions;
     }
 
     /**
