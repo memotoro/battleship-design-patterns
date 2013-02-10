@@ -16,14 +16,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanelGridPositions" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanelInfo" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanelMessage" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jPanelShipsInfo" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jPanelGridPositions" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jPanelMessage" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jPanelInfo" alignment="0" max="32767" attributes="1"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -33,10 +34,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jPanelShipsInfo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanelGridPositions" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanelMessage" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,16 +59,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabelPlayerNameLabel" alignment="1" max="32767" attributes="1"/>
-                      <Component id="jLabelShipsAvailableLabel" alignment="1" max="32767" attributes="1"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelShipsAvailable" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelPlayerName" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPlayerNameLabel" min="-2" max="-2" attributes="1"/>
+                      <Component id="jLabelShipsAvailableLabel" alignment="0" pref="113" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace pref="142" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelPlayerName" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelShipsAvailable" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -77,12 +80,12 @@
                       <Component id="jLabelPlayerNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelPlayerName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelShipsAvailableLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelShipsAvailable" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -122,12 +125,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="374" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="379" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="230" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -147,7 +150,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelNotificationMessage" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="314" max="32767" attributes="0"/>
+                  <EmptySpace pref="319" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -165,6 +168,108 @@
         <Component class="javax.swing.JLabel" name="jLabelNotificationMessage">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanelShipsInfo">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelCruiser1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelAirCraft" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelSubmarine" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="jLabelCruiser2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelBoat1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDestroyer1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelDestroyer2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelBoat2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelAirCraft" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSubmarine" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDestroyer1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDestroyer2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelCruiser1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelBoat1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelBoat2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCruiser2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabelAirCraft">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Air Craft"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelDestroyer1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Destroyer 1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelCruiser1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cruiser 1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelBoat1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Boat 1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelBoat2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Boat 2"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelCruiser2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cruiser 2"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelDestroyer2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Destroyer 2"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelSubmarine">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Submarine"/>
           </Properties>
         </Component>
       </SubComponents>

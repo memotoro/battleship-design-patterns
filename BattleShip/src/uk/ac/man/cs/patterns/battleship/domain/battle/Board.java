@@ -13,6 +13,8 @@ import uk.ac.man.cs.patterns.battleship.domain.ships.Ship;
 import uk.ac.man.cs.patterns.battleship.domain.ships.AirCraft;
 import java.util.ArrayList;
 import java.util.List;
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.ships.Boat;
 
 /**
@@ -20,7 +22,7 @@ import uk.ac.man.cs.patterns.battleship.domain.ships.Boat;
  * A board is one of the main concepts in the game. Is a collection of position with ships in them.
  * @author Guillermo Antonio Toro Bayona
  */
-public class Board {
+public class Board implements Observer {
 
     /**
      * List of Ships
@@ -81,18 +83,22 @@ public class Board {
      */
     private void createShips() {
         // Create One AirCraft
-        this.ships.add(new AirCraft());
+        this.ships.add(new AirCraft(Constants.SHIP_NAME_AIRCRAFT));
         // Create one Submarine
-        this.ships.add(new Submarine());
+        this.ships.add(new Submarine(Constants.SHIP_NAME_SUBMARINE));
         // Create two Boats
-        this.ships.add(new Boat());
-        this.ships.add(new Boat());
+        this.ships.add(new Boat(Constants.SHIP_NAME_BOAT_1));
+        this.ships.add(new Boat(Constants.SHIP_NAME_BOAT_2));
         // Create two Cruisers
-        this.ships.add(new Cruiser());
-        this.ships.add(new Cruiser());
+        this.ships.add(new Cruiser(Constants.SHIP_NAME_CRUISER_1));
+        this.ships.add(new Cruiser(Constants.SHIP_NAME_CRUISER_2));
         // Create two Destroyers
-        this.ships.add(new Destroyer());
-        this.ships.add(new Destroyer());
+        this.ships.add(new Destroyer(Constants.SHIP_NAME_DESTROYER_1));
+        this.ships.add(new Destroyer(Constants.SHIP_NAME_DESTROYER_2));
+        // Register observer
+        for (Ship ship : this.ships) {
+            ship.registerObserver(this);
+        }
         // Add to the list.
         this.shipsAvailable = this.ships.size();
     }
@@ -183,11 +189,11 @@ public class Board {
     }
 
     /**
-     * Method that validate is a shoot was successful in the board
+     * Method that execute and validate if a shoot was successful in the board
      * @param positionToValidate Position to validate
      * @return boolean with validation result.
      */
-    public boolean validateShootSuccessful(Position positionToValidate) {
+    public boolean executeAndValidateShoot(Position positionToValidate) {
         // Validation of the shoot
         boolean validationShootSuccessful = false;
         // Loop for every ship in the board
@@ -196,11 +202,6 @@ public class Board {
             if (ship.validatePositionAttacked(positionToValidate)) {
                 // Change the control
                 validationShootSuccessful = true;
-                // Validate the state of the ship
-                if (ship.getState() == Constants.SHIP_STATE_DETROYED) {
-                    // Reduce the number of the ships available.
-                    this.shipsAvailable--;
-                }
                 break;
             }
         }
@@ -235,5 +236,31 @@ public class Board {
      */
     public List<Position> getPositionsOccupied() {
         return positionsOccupied;
+    }
+
+    /**
+     * Get list of ships
+     * @return List of ships.
+     */
+    public List<Ship> getShips() {
+        return ships;
+    }
+
+    /**
+     * Method to update the state of the subject in this observer.
+     * Observer Pattern.
+     * @param subject Subject with changes
+     */
+    public void updateObserver(Subject subject) {
+        // Validate observer ship
+        if (subject instanceof Ship) {
+            // Casting to ship
+            Ship ship = (Ship) subject;
+            // Validate the state of the ship
+            if (ship.getState() == Constants.SHIP_STATE_DETROYED) {
+                // Reduce the number of the ships available.
+                this.shipsAvailable--;
+            }
+        }
     }
 }

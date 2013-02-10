@@ -16,7 +16,7 @@ public class Cruiser extends Ship {
      * Constructor.
      * Call the super with specific size for the ship.
      */
-    public Cruiser() {
-        super(Constants.SHIP_SIZE_CRUISER);
+    public Cruiser(String name) {
+        super(Constants.SHIP_SIZE_CRUISER, name);
     }
 }

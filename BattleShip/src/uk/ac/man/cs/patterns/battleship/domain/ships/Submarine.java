@@ -16,7 +16,7 @@ public class Submarine extends Ship {
      * Constructor.
      * Call the super with specific size for the ship.
      */
-    public Submarine() {
-        super(Constants.SHIP_SIZE_SUBMARINE);
+    public Submarine(String name) {
+        super(Constants.SHIP_SIZE_SUBMARINE, name);
     }
 }

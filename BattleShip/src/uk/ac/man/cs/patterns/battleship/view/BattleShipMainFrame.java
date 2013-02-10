@@ -10,11 +10,11 @@
  */
 package uk.ac.man.cs.patterns.battleship.view;
 
+import java.awt.GridLayout;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
  *
@@ -29,6 +29,16 @@ public class BattleShipMainFrame extends javax.swing.JFrame {
         initComponents();
         this.gameListener = new GameListener(this);
         this.jMenuItemManVsPc.addActionListener(this.gameListener);
+    }
+
+    public void prepare() {
+        this.getjPanelGame().removeAll();
+        this.getjPanelGame().setLayout(new GridLayout(1, 0));
+    }
+
+    public void refresh() {
+        this.pack();
+        this.repaint();
     }
 
     /**

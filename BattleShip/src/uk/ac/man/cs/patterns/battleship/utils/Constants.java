@@ -34,6 +34,8 @@ public class Constants {
     public static final String GAME_PATH_IMAGE_MISSED = "src/uk/ac/man/cs/patterns/battleship/view/resources/missed.png";
     public static final String GAME_PATH_IMAGE_SHIP = "src/uk/ac/man/cs/patterns/battleship/view/resources/ship.png";
     public static final String GAME_TEXT_SEPARATOR = "-";
+    public static final String GAME_TEXT_OPEN_BRAKET = "[";
+    public static final String GAME_TEXT_CLOSE_BRAKET = "]";
     /**
      * Ship.
      */
@@ -51,6 +53,14 @@ public class Constants {
     public static final Integer SHIP_SIZE_DESTROYER = 3;
     public static final Integer SHIP_SIZE_CRUISER = 2;
     public static final Integer SHIP_SIZE_BOAT = 1;
+    public static final String SHIP_NAME_AIRCRAFT = "Air-Craft";
+    public static final String SHIP_NAME_SUBMARINE = "Submarine";
+    public static final String SHIP_NAME_DESTROYER_1 = "Destroyer-1";
+    public static final String SHIP_NAME_DESTROYER_2 = "Destroyer-2";
+    public static final String SHIP_NAME_CRUISER_1 = "Cruiser-1";
+    public static final String SHIP_NAME_CRUISER_2 = "Cruiser-2";
+    public static final String SHIP_NAME_BOAT_1 = "Boat-1";
+    public static final String SHIP_NAME_BOAT_2 = "Boat-2";
     /**
      * Shoot.
      */
@@ -87,4 +97,5 @@ public class Constants {
     public static final String CODE_008 = "008";
     public static final String CODE_009 = "009";
     public static final String CODE_010 = "010";
+    public static final String CODE_011 = "011";
 }

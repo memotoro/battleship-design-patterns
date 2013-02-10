@@ -55,8 +55,8 @@ public abstract class Turn {
         this.shoot = this.createShoot(positionReceived);
         // Validation for the previous created shoot.
         this.validateShootCorrectnes(this.shoot);
-        // Validate the status of the shoot.
-        this.validateShootStatus();
+        // Execute shoot
+        this.executeShoot();
         // Save the turn in the historic list of turns.
         this.saveTurn();
     }
@@ -87,11 +87,11 @@ public abstract class Turn {
 
     /**
      * Concrete step in the Turn.
-     * This method validate the status of the shoot.
+     * This method execute the shoot.
      */
-    private void validateShootStatus() {
+    private void executeShoot() {
         // Validate the shoot state with the specific value.
-        if (this.playerAttacked.getBoard().validateShootSuccessful(this.shoot.getPosition())) {
+        if (this.playerAttacked.getBoard().executeAndValidateShoot(this.shoot.getPosition())) {
             shoot.setState(Constants.SHOOT_STATE_SUCCESSFUL);
         } else {
             shoot.setState(Constants.SHOOT_STATE_MISSED);

@@ -4,7 +4,11 @@
  */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.battle.strategy.PositionSearching;
+import uk.ac.man.cs.patterns.battleship.domain.ships.Ship;
+import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
  * Shoot.
