@@ -16,7 +16,7 @@ public class Destroyer extends Ship {
      * Constructor.
      * Call the super with specific size for the ship.
      */
-    public Destroyer() {
-        super(Constants.SHIP_SIZE_DESTROYER);
+    public Destroyer(String name) {
+        super(Constants.SHIP_SIZE_DESTROYER, name);
     }
 }

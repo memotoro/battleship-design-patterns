@@ -16,7 +16,7 @@ public class Boat extends Ship {
      * Constructor.
      * Call the super with specific size for the ship.
      */
-    public Boat() {
-        super(Constants.SHIP_SIZE_BOAT);
+    public Boat(String name) {
+        super(Constants.SHIP_SIZE_BOAT, name);
     }
 }

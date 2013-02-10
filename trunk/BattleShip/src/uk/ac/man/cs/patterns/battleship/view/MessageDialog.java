@@ -8,16 +8,16 @@
  *
  * Created on 02-Feb-2013, 16:17:03
  */
-
 package uk.ac.man.cs.patterns.battleship.view;
 
 import javax.swing.JDialog;
 
 /**
- *
+ * Class that represent pop up messages with confirmation or not.
  * @author Guillermo Antonio Toro Bayona
  */
 public class MessageDialog extends JDialog {
+
     /** A return status code - returned if Cancel button has been pressed */
     public static final int RET_CANCEL = 0;
     /** A return status code - returned if OK button has been pressed */
@@ -28,7 +28,7 @@ public class MessageDialog extends JDialog {
         super(parent, modal);
         initComponents();
         this.jLabelMessage.setText(message);
-        if(!confirmation){
+        if (!confirmation) {
             this.jButtonCancel.setVisible(false);
         }
     }
@@ -125,13 +125,10 @@ public class MessageDialog extends JDialog {
         setVisible(false);
         dispose();
     }
-
     private int returnStatus = RET_CANCEL;
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonOk;
     private javax.swing.JLabel jLabelMessage;
     // End of variables declaration//GEN-END:variables
-    
 }

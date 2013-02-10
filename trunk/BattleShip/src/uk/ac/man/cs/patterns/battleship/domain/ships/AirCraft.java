@@ -16,7 +16,7 @@ public class AirCraft extends Ship {
      * Constructor.
      * Call the super with specific size for the ship.
      */
-    public AirCraft() {
-        super(Constants.SHIP_SIZE_AIRCRAFT);
+    public AirCraft(String name) {
+        super(Constants.SHIP_SIZE_AIRCRAFT, name);
     }
 }

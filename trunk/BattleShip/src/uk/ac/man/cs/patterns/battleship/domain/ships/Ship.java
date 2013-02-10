@@ -8,6 +8,8 @@ import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import java.util.ArrayList;
 import java.util.List;
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 
 /**
  * Ship.
@@ -15,12 +17,16 @@ import java.util.List;
  * with inheritance relationship.
  * @author Guillermo Antonio Toro Bayona
  */
-public abstract class Ship {
+public abstract class Ship implements Subject {
 
     /**
      * Integer that represent the size
      */
     private Integer size;
+    /**
+     * String name
+     */
+    private String name;
     /*
      * Integer that represent the state
      */
@@ -33,19 +39,25 @@ public abstract class Ship {
      * List of Position from the ships that have been attacked.
      */
     private List<Position> positionsAttacked;
+    /**
+     * List of observers
+     */
+    private List<Observer> observers;
 
     /**
      * Constructor.
      * Receive a specific size.
      * @param size
      */
-    public Ship(Integer size) {
+    public Ship(Integer size, String name) {
         this.size = size;
+        this.name = name;
         // Set the initial state for the ship as OK.
         this.state = Constants.SHIP_STATE_OK;
         // Initialize the arrays of positions.
         this.positionsOccupied = new ArrayList<Position>();
         this.positionsAttacked = new ArrayList<Position>();
+        this.observers = new ArrayList<Observer>();
     }
 
     /**
@@ -68,6 +80,8 @@ public abstract class Ship {
                 // Set the state attacked
                 this.state = Constants.SHIP_STATE_ATTACKED;
             }
+            // Notify observer
+            this.notifyObservers();
             // Return validation
             return true;
         } else {
@@ -93,10 +107,46 @@ public abstract class Ship {
     }
 
     /**
+     * String name of the ship
+     * @return String
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Set the positions occupied by one ship.
      * @param positionsOccupied
      */
     public void setPositionsOccupied(List<Position> positionsOccupied) {
         this.positionsOccupied = positionsOccupied;
+    }
+
+    /**
+     * Method to register observer.
+     * Observer Pattern.
+     * @param observer Observer
+     */
+    public void registerObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    /**
+     * Method to remove observer.
+     * Observer Pattern.
+     * @param observer Observer
+     */
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    /**
+     * Method to notify observer of changes
+     * Observer Pattern.
+     */
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.updateObserver(this);
+        }
     }
 }
