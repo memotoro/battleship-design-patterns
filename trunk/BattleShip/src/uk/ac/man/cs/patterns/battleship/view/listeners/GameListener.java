@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.ac.man.cs.patterns.battleship.view;
+package uk.ac.man.cs.patterns.battleship.view.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +16,8 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
+import uk.ac.man.cs.patterns.battleship.view.BattleShipMainFrame;
+import uk.ac.man.cs.patterns.battleship.view.BoardDisplayer;
 
 /**
  * Class that implement action listener to catch every action in the panels and frames
@@ -79,7 +81,7 @@ public class GameListener implements ActionListener {
                 // Process the action in GUI
                 this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardPcDisplayer.getPlayer(), position);
                 // Take the action from the pc player
-                this.actionEvent();
+                this.actionPcEvent();
             } catch (BattleShipException ex) {
                 // Update the message
                 this.boardPcDisplayer.updateNotificationMessage(ex.getDescription());
@@ -119,7 +121,7 @@ public class GameListener implements ActionListener {
     /**
      * Method that simulate the turn of the PC
      */
-    private void actionEvent() {
+    private void actionPcEvent() {
         try {
             // Call the controller with the pc player and take the position.
             Position position = this.battleShipController.attack(this.boardPcDisplayer.getPlayer(), null, null);
@@ -138,19 +140,30 @@ public class GameListener implements ActionListener {
      * @param position
      */
     private void processAction(Player activePlayer, Player opponentPlayer, Position position) {
+        // Validate player as human player
         if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
+            // Update image icon of the button
             this.boardPcDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), this.battleShipController.lastShootState(activePlayer));
+            // Update ships available
             this.boardPcDisplayer.updateShipsAvailable(this.battleShipController.shipsAvailable(opponentPlayer));
+            // Update notification message
             this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_003));
             this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
-        } else if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
+        } // Validate player as pc player
+        else if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
+            // Update image icon of the button
             this.boardPlayerDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), this.battleShipController.lastShootState(activePlayer));
+            // Update ships available
             this.boardPlayerDisplayer.updateShipsAvailable(this.battleShipController.shipsAvailable(opponentPlayer));
+            // Update notification message
             this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_003));
             this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
         }
+        // Validate if the game is finished to update proper elements in the view
         if (this.battleShipController.gameStatus() == Constants.GAME_STATE_FINISHED) {
+            // Create a popup message
             this.boardPlayerDisplayer.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + activePlayer.getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
+            // Update a message
             this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005));
             this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005));
         }

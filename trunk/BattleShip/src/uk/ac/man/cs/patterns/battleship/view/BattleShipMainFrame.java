@@ -10,32 +10,42 @@
  */
 package uk.ac.man.cs.patterns.battleship.view;
 
+import uk.ac.man.cs.patterns.battleship.view.listeners.GameListener;
 import java.awt.GridLayout;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class that represent the main frame of the game
  * @author Guillermo Antonio Toro Bayona
  */
 public class BattleShipMainFrame extends javax.swing.JFrame {
 
+    /**
+     * GameListener of the game
+     */
     private GameListener gameListener;
 
-    /** Creates new form BattleShipMainFrame */
+    /**
+     * Constructor
+     */
     public BattleShipMainFrame() {
         initComponents();
+        // Create the instances of the GameListener
         this.gameListener = new GameListener(this);
         this.jMenuItemManVsPc.addActionListener(this.gameListener);
     }
 
+    /**
+     * Prepare frame to draw
+     */
     public void prepare() {
         this.getjPanelGame().removeAll();
         this.getjPanelGame().setLayout(new GridLayout(1, 0));
     }
 
+    /**
+     * Prepare frame to refresh
+     */
     public void refresh() {
         this.pack();
         this.repaint();
@@ -69,7 +79,7 @@ public class BattleShipMainFrame extends javax.swing.JFrame {
             .addGap(0, 251, Short.MAX_VALUE)
         );
 
-        jMenuGame.setText("Game");
+        jMenuGame.setText("New Game");
 
         jMenuItemManVsPc.setText("Man vs Pc");
         jMenuGame.add(jMenuItemManVsPc);
@@ -103,22 +113,6 @@ public class BattleShipMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemManVsPc;
     private javax.swing.JPanel jPanelGame;
     // End of variables declaration//GEN-END:variables
-
-    public GameListener getGameListener() {
-        return gameListener;
-    }
-
-    public JMenuBar getjMenuBarBattleShip() {
-        return jMenuBarBattleShip;
-    }
-
-    public JMenu getjMenuGame() {
-        return jMenuGame;
-    }
-
-    public JMenuItem getjMenuItemManVsPc() {
-        return jMenuItemManVsPc;
-    }
 
     public JPanel getjPanelGame() {
         return jPanelGame;

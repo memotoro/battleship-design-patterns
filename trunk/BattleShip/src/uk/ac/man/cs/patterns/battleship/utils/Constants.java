@@ -30,7 +30,7 @@ public class Constants {
      */
     public static final String GAME_PATH_FILE_MESSAGES = "/uk/ac/man/cs/patterns/battleship/view/resources/messages.properties";
     public static final String GAME_PATH_IMAGE_SEA = "src/uk/ac/man/cs/patterns/battleship/view/resources/sea.png";
-    public static final String GAME_PATH_IMAGE_HITTED = "src/uk/ac/man/cs/patterns/battleship/view/resources/hitted.png";
+    public static final String GAME_PATH_IMAGE_ATTACKED = "src/uk/ac/man/cs/patterns/battleship/view/resources/attacked.png";
     public static final String GAME_PATH_IMAGE_MISSED = "src/uk/ac/man/cs/patterns/battleship/view/resources/missed.png";
     public static final String GAME_PATH_IMAGE_SHIP = "src/uk/ac/man/cs/patterns/battleship/view/resources/ship.png";
     public static final String GAME_TEXT_SEPARATOR = "-";

@@ -115,6 +115,14 @@ public abstract class Ship implements Subject {
     }
 
     /**
+     * Get positions occupied
+     * @return List of positions
+     */
+    public List<Position> getPositionsAttacked() {
+        return positionsAttacked;
+    }
+
+    /**
      * Set the positions occupied by one ship.
      * @param positionsOccupied
      */
