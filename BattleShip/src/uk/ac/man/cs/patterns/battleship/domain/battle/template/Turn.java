@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle.template;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
@@ -11,10 +7,8 @@ import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
- * Abstract class that represent a generic Turn.
- * This class set specific steps in one player's turn.
- * Some specific steps must be implement by specific players.
- * Template Pattern.
+ * Template Pattern. Abstract class that represent a generic Turn. This class set specific steps in one player's turn.
+ * Some specific steps must be implement by specific players. 
  * @author Guillermo Antonio Toro Bayona
  */
 public abstract class Turn {
@@ -43,10 +37,8 @@ public abstract class Turn {
     }
 
     /**
-     * Template method.
-     * This method is part of the Template Pattern.
+     * Template method. This method is part of the Template Pattern.
      * In this case, this method set the specific steps that one turn must have.
-     * Template Pattern.
      * @param positionReceived Position received to be attacked
      * @throws BattleShipException
      */
@@ -62,18 +54,15 @@ public abstract class Turn {
     }
 
     /**
-     * Abstract method of the Template.
-     * This method must be implemented by every type of player.
-     * The Human-Player and the PC-Player executed this method in different ways.
-     * Template Pattern.
+     * Template Pattern. Abstract method of the Template. This method must be implemented by every type of player.
+     * The Human-Player and the PC-Player executed this method in different ways.   
      * @param positionReceived  Position received to be attacked
      * @return Shoot created.
      */
     protected abstract Shoot createShoot(Position positionReceived);
 
     /**
-     * Concrete step in the Turn.
-     * This method validate if the Shoot received is valid in the board of the attacked player.
+     * Template Pattern. Concrete step in the Turn. This method validate if the Shoot received is valid in the board of the attacked player.
      * @param shoot Shoot to validate
      * @throws BattleShipException
      */
@@ -86,8 +75,7 @@ public abstract class Turn {
     }
 
     /**
-     * Concrete step in the Turn.
-     * This method execute the shoot.
+     * Template Pattern. Concrete step in the Turn. This method execute the shoot.
      */
     private void executeShoot() {
         // Validate the shoot state with the specific value.
@@ -99,9 +87,7 @@ public abstract class Turn {
     }
 
     /**
-     * Concrete step in the turn.
-     * Once the turn was played and the shoot was updated,
-     * the turn is saved in the list of the previous turns.
+     * Template Pattern. Concrete step in the turn. Once the turn was played and the shoot was updated, the turn is saved in the list of the previous turns.
      */
     private void saveTurn() {
         this.playerAttacking.getPreviousTurns().add(this);

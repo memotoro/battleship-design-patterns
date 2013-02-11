@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle.strategy;
 
 import java.util.ArrayList;
@@ -11,9 +7,8 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import uk.ac.man.cs.patterns.battleship.utils.RandomUtil;
 
 /**
- * Nearby Searching is a concrete strategy to look for position near one successful shoot.
+ * Strategy Pattern. Nearby Searching is a concrete strategy to look for position near one successful shoot.
  * This class create possible positions to attack and select one randomly.
- * Strategy Pattern.
  * @author Guillermo Antonio Toro Bayona
  */
 public class NearbySearching extends PositionSearching {
@@ -24,8 +19,7 @@ public class NearbySearching extends PositionSearching {
     private Player playerAttacekd;
 
     /**
-     * Constructor.
-     * Received a helper position and the player to be attacked.
+     * Constructor. Received a helper position and the player to be attacked.
      * @param positionHelper
      * @param playerAttacked
      */
@@ -35,10 +29,8 @@ public class NearbySearching extends PositionSearching {
     }
 
     /**
-     * Concrete implementation for search positions to attack.
-     * Inside this method possible positions are created based on the position helper.
-     * One position is selected randomly from the possible options.
-     * If there are no possible options, return null.
+     * Concrete implementation for search positions to attack. Inside this method possible positions are created based on the position helper.
+     * One position is selected randomly from the possible options. If there are no possible options, return null.
      * @return Position
      */
     public Position searchPositionToAttack() {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.controller;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.Game;
@@ -10,8 +6,7 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
- * Interface of the Controller of the battle ship game.
- * Expose the public operations that controller offers to the View.
+ * Interface of the Controller of the battle ship game. Expose the public operations that controller offers to the View.
  * @author Guillermo Antonio Toro Bayona
  */
 public interface IBattleShipController {
@@ -23,8 +18,7 @@ public interface IBattleShipController {
     public Game startNewGame();
 
     /**
-     * Method that represent an attack in the game.
-     * Received the player that is attacking and the coordinated to be attacked.
+     * Method that represent an attack in the game. Received the player that is attacking and the coordinated to be attacked.
      * @param playerReceived Player attacking
      * @param coordinateX Integer coordinate X
      * @param coordinateY Integer coordinate Y

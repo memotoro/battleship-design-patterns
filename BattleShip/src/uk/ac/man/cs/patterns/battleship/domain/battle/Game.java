@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.template.Turn;
@@ -13,8 +9,7 @@ import java.util.List;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
- * Game. This class represent a session game.
- * This class control specific steps before one turn was executed.
+ * This class represent a session game.This class control specific steps before one turn was executed.
  * @author Guillermo Antonio Toro Bayona
  */
 public class Game {
@@ -37,8 +32,7 @@ public class Game {
     private Player playerAttacked;
 
     /**
-     * Constructor.
-     * Initialise a game instance.
+     * Constructor.Initialise a game instance.
      */
     public Game() {
         this.players = new ArrayList<Player>();
@@ -47,8 +41,7 @@ public class Game {
     }
 
     /**
-     * Method that create a game.
-     * Set the players
+     * Method that create a game.Set the players
      */
     private void createGame() {
         // Set the initial state
@@ -62,8 +55,7 @@ public class Game {
     }
 
     /**
-     * Attack is the main method of the game.
-     * Set specific steps before to play. Make some validation before and after each Turn.
+     * Attack is the main method of the game.Set specific steps before to play. Make some validation before and after each Turn.
      * @param playerReceived Player that executed the attack.
      * @param positionReceived Position to be attacked
      * @throws BattleShipException
@@ -107,8 +99,7 @@ public class Game {
     }
 
     /**
-     * Method that create an attack for each player.
-     * Based on each player, a specific Turn is created.
+     * Method that create an attack for each player. Based on each player, a specific Turn is created.
      * @param playerReceived Player attacking
      * @param positionReceived Position to be attacked
      * @throws BattleShipException

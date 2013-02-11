@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.ships;
 
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
@@ -12,9 +8,7 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 
 /**
- * Ship.
- * This class represent a ship as a general concept. Concrete ships are related with Ship
- * with inheritance relationship.
+ * Ship. This class represent a ship as a general concept. Concrete ships are related with Ship with inheritance relationship.
  * @author Guillermo Antonio Toro Bayona
  */
 public abstract class Ship implements Subject {
@@ -45,8 +39,7 @@ public abstract class Ship implements Subject {
     private List<Observer> observers;
 
     /**
-     * Constructor.
-     * Receive a specific size.
+     * Constructor. Receive a specific size.
      * @param size
      */
     public Ship(Integer size, String name) {
@@ -131,8 +124,7 @@ public abstract class Ship implements Subject {
     }
 
     /**
-     * Method to register observer.
-     * Observer Pattern.
+     * Observer Pattern. Method to register observer.
      * @param observer Observer
      */
     public void registerObserver(Observer observer) {
@@ -140,8 +132,7 @@ public abstract class Ship implements Subject {
     }
 
     /**
-     * Method to remove observer.
-     * Observer Pattern.
+     * Observer Pattern. Method to remove observer.
      * @param observer Observer
      */
     public void removeObserver(Observer observer) {
@@ -149,8 +140,7 @@ public abstract class Ship implements Subject {
     }
 
     /**
-     * Method to notify observer of changes
-     * Observer Pattern.
+     * Observer Pattern. Method to notify observer of changes
      */
     public void notifyObservers() {
         for (Observer observer : this.observers) {

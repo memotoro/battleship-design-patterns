@@ -1,18 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
-import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
-import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.battle.strategy.PositionSearching;
-import uk.ac.man.cs.patterns.battleship.domain.ships.Ship;
-import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
- * Shoot.
- * Represent a shot in the game.
+ * Shoot.Represent a shot in the game.
  * @author Guillermo Antonio Toro Bayona
  */
 public class Shoot {
@@ -31,8 +22,7 @@ public class Shoot {
     private PositionSearching positionSearching;
 
     /**
-     * Constructor.
-     * Received the searching strategy to look for positions to be attacked.
+     * Constructor. Received the searching strategy to look for positions to be attacked.
      * @param positionSearching PositionSearching
      */
     public Shoot(PositionSearching positionSearching) {
@@ -40,8 +30,7 @@ public class Shoot {
     }
 
     /**
-     * Specific method that execute the concrete strategy.
-     * Strategy Pattern.
+     * Strategy Pattern. Specific method that execute the concrete strategy.
      */
     public void searchPosition() {
         this.position = this.positionSearching.searchPositionToAttack();

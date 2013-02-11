@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.view;
 
 import uk.ac.man.cs.patterns.battleship.view.listeners.GameListener;
@@ -17,7 +13,6 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.ships.Ship;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
-import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
  * Class that is in charge of update and draw elements in a specific BoardPanel.
@@ -117,7 +112,6 @@ public class BoardDisplayer implements Observer {
     public Integer displayPopUpConfirmationMessage(String message) {
         // Create message dialog
         MessageDialog messageDialog = new MessageDialog(this.battleShipMainFrame, true, true, message);
-        messageDialog.setVisible(true);
         // Return status
         return messageDialog.getReturnStatus();
     }
@@ -128,7 +122,7 @@ public class BoardDisplayer implements Observer {
      */
     public void displayPopUpMessage(String message) {
         // Create message dialog
-        new MessageDialog(this.battleShipMainFrame, true, false, message).setVisible(true);
+        new MessageDialog(this.battleShipMainFrame, true, false, message);
     }
 
     /**
@@ -138,8 +132,8 @@ public class BoardDisplayer implements Observer {
         // Set the values based on the information of the game, player
         this.boardPanel.getjLabelPlayerName().setText(this.boardPanel.getPlayer().getName());
         this.boardPanel.getjLabelShipsAvailable().setText(this.boardPanel.getPlayer().getBoard().getShipsAvailable().toString());
-        this.boardPanel.setNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_008));
-        this.boardPanel.getjPanelGridPositions().setLayout(new GridLayout(Constants.BOARD_SIZE_WIDTH, Constants.BOARD_SIZE_HEIGHT));
+        this.boardPanel.setNotificationMessage("");
+        this.boardPanel.getjPanelGridPositions().setLayout(new GridLayout(Constants.BOARD_SIZE_HEIGHT, Constants.BOARD_SIZE_WIDTH));
         // Create the button with specific coordinates and player name
         for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
             for (int x = 0; x < Constants.BOARD_SIZE_WIDTH; x++) {
@@ -208,24 +202,8 @@ public class BoardDisplayer implements Observer {
      */
     private void updateColorLabel(Ship ship) {
         JLabel labelToUpdate = null;
-        // Validate the name of the Ship and update the specific label
-        if (ship.getName().equals(Constants.SHIP_NAME_AIRCRAFT)) {
-            labelToUpdate = this.boardPanel.getjLabelAirCraft();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_SUBMARINE)) {
-            labelToUpdate = this.boardPanel.getjLabelSubmarine();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_DESTROYER_1)) {
-            labelToUpdate = this.boardPanel.getjLabelDestroyer1();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_DESTROYER_2)) {
-            labelToUpdate = this.boardPanel.getjLabelDestroyer2();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_CRUISER_1)) {
-            labelToUpdate = this.boardPanel.getjLabelCruiser1();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_CRUISER_2)) {
-            labelToUpdate = this.boardPanel.getjLabelCruiser2();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_BOAT_1)) {
-            labelToUpdate = this.boardPanel.getjLabelBoat1();
-        } else if (ship.getName().equals(Constants.SHIP_NAME_BOAT_2)) {
-            labelToUpdate = this.boardPanel.getjLabelBoat2();
-        }
+        // Get the jlabel with the name of the player and the ship
+        labelToUpdate = this.boardPanel.getJLabelByName(this.boardPanel.getPlayer().getName(), ship.getName());
         // Validate states
         if (ship.getState() == Constants.SHIP_STATE_OK) {
             labelToUpdate.setForeground(Color.green);

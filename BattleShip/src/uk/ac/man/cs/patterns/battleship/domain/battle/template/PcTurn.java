@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle.template;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
@@ -12,9 +8,7 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.strategy.RandomSearching;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
- * PC Turn. Concrete turn for human player.
- * This class implement the abstract method from the abstract Turn.
- * Template Pattern.
+ * Template Pattern.PC Turn. Concrete turn for human player. This class implement the abstract method from the abstract Turn.
  * @author Guillermo Antonio Toro Bayona
  */
 public class PcTurn extends Turn {
