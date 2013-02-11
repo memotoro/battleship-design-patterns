@@ -1,16 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle.strategy;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 
 /**
- * Random Strategy is a concrete strategy to look for position randomly.
+ * Strategy Pattern.Random Strategy is a concrete strategy to look for position randomly.
  * The position to attack are selected randomly from the available position in the board.
- * Strategy Pattern.
  * @author Guillermo Antonio Toro Bayona
  */
 public class RandomSearching extends PositionSearching {
@@ -21,8 +16,7 @@ public class RandomSearching extends PositionSearching {
     private Player playerAttacekd;
 
     /**
-     * Constructor.
-     * Received a helper position and the player to be attacked.
+     * Constructor. Received a helper position and the player to be attacked.
      * @param positionHelper
      * @param playerAttacked
      */
@@ -32,9 +26,7 @@ public class RandomSearching extends PositionSearching {
     }
 
     /**
-     * Concrete implementation of search position to attack.
-     * In this case, the algorithm look for available positions in the board
-     * and select one randomly.
+     * Concrete implementation of search position to attack. In this case, the algorithm look for available positions in the board and select one randomly.
      * @return Position
      */
     public Position searchPositionToAttack() {

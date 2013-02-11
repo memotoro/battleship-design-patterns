@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.utils;
 
 import java.util.Random;
@@ -18,8 +14,7 @@ public class RandomUtil {
     private static Random randomGenerator;
 
     /**
-     * Static method to generate a random number from 0 (inclusive) to
-     * the given max value (exclusive)
+     * Static method to generate a random number from 0 (inclusive) to the given max value (exclusive)
      * @param maxValue Integer with the max value allowed.
      * @return Integer random number
      */

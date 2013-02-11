@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.view.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JMenuItem;
 import uk.ac.man.cs.patterns.battleship.controller.BattleShipController;
 import uk.ac.man.cs.patterns.battleship.controller.IBattleShipController;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Game;
@@ -18,6 +13,7 @@ import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 import uk.ac.man.cs.patterns.battleship.view.BattleShipMainFrame;
 import uk.ac.man.cs.patterns.battleship.view.BoardDisplayer;
+import uk.ac.man.cs.patterns.battleship.view.MessageDialog;
 
 /**
  * Class that implement action listener to catch every action in the panels and frames
@@ -45,6 +41,10 @@ public class GameListener implements ActionListener {
      * BoardDisplayer for pc player
      */
     private BoardDisplayer boardPcDisplayer;
+    /**
+     * Message dialog
+     */
+    private MessageDialog messageDialog;
 
     /**
      * Constructor.
@@ -72,35 +72,37 @@ public class GameListener implements ActionListener {
             JButton jButtonExecuted = (JButton) e.getSource();
             // Take the name and split with one specific separator
             String[] infoButton = jButtonExecuted.getName().split(Constants.GAME_TEXT_SEPARATOR);
-            // Take the coordinates of the button
-            Integer coordinateX = Integer.valueOf(infoButton[1]);
-            Integer coordinateY = Integer.valueOf(infoButton[2]);
-            try {
-                // Call the controller and take the position back
-                Position position = this.battleShipController.attack(this.boardPlayerDisplayer.getPlayer(), coordinateX, coordinateY);
-                // Process the action in GUI
-                this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardPcDisplayer.getPlayer(), position);
-                // Take the action from the pc player
-                this.actionPcEvent();
-            } catch (BattleShipException ex) {
-                // Update the message
-                this.boardPcDisplayer.updateNotificationMessage(ex.getDescription());
-            }
-
-        } // Validate if the sources is JMenuItem
-        else if (e.getSource() instanceof JMenuItem) {
-            // If the game is not null
-            if (this.game != null) {
-                // Validate the response of a pop up confirmation message
-                if (this.boardPlayerDisplayer.displayPopUpConfirmationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_007)) == 1) {
+            // Validate name of button
+            if (infoButton[0].equals(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_012))) {
+                // If the game is not null
+                if (this.game != null) {
+                    // Validate the response of a pop up confirmation message
+                    if (this.boardPlayerDisplayer.displayPopUpConfirmationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_007)) == 1) {
+                        // Draw game
+                        this.drawGame();
+                    }
+                } else {
                     // Draw game
                     this.drawGame();
                 }
-            } else {
-                // Draw game
-                this.drawGame();
+                this.battleShipMainFrame.refresh();
+            }  // If a button of the board
+            else {
+                // Take the coordinates of the button
+                Integer coordinateX = Integer.valueOf(infoButton[1]);
+                Integer coordinateY = Integer.valueOf(infoButton[2]);
+                try {
+                    // Call the controller and take the position back
+                    Position position = this.battleShipController.attack(this.boardPlayerDisplayer.getPlayer(), coordinateX, coordinateY);
+                    // Process the action in GUI
+                    this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardPcDisplayer.getPlayer(), position);
+                    // Take the action from the pc player
+                    this.actionPcEvent();
+                } catch (BattleShipException ex) {
+                    // Update the message
+                    this.boardPcDisplayer.updateNotificationMessage(ex.getDescription());
+                }
             }
-            this.battleShipMainFrame.refresh();
         }
     }
 

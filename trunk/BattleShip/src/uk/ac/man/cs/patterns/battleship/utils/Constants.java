@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.utils;
 
 /**
@@ -11,23 +7,14 @@ package uk.ac.man.cs.patterns.battleship.utils;
 public class Constants {
 
     /**
-     * Game.
-     */
-    /**
-     * States of the game.
+     * Game constants
      */
     public static final Integer GAME_STATE_PLAYING = 0;
     public static final Integer GAME_STATE_FINISHED = 1;
-    /**
-     * Names and types of the players.
-     */
     public static final String GAME_PLAYER_NAME_PC = "Pc";
     public static final String GAME_PLAYER_NAME_HUMAN = "Player";
     public static final String GAME_PLAYER_TYPE_PC = "PcPlayer";
     public static final String GAME_PLAYER_TYPE_HUMAN = "HumanPlayer";
-    /**
-     * Paths to resources and images in the game.
-     */
     public static final String GAME_PATH_FILE_MESSAGES = "/uk/ac/man/cs/patterns/battleship/view/resources/messages.properties";
     public static final String GAME_PATH_IMAGE_SEA = "src/uk/ac/man/cs/patterns/battleship/view/resources/sea.png";
     public static final String GAME_PATH_IMAGE_ATTACKED = "src/uk/ac/man/cs/patterns/battleship/view/resources/attacked.png";
@@ -37,17 +24,11 @@ public class Constants {
     public static final String GAME_TEXT_OPEN_BRAKET = "[";
     public static final String GAME_TEXT_CLOSE_BRAKET = "]";
     /**
-     * Ship.
-     */
-    /**
-     * States of the ship.
+     * Ship constants
      */
     public static final Integer SHIP_STATE_OK = 0;
     public static final Integer SHIP_STATE_ATTACKED = 1;
     public static final Integer SHIP_STATE_DETROYED = 2;
-    /**
-     * Sizes of the ship.
-     */
     public static final Integer SHIP_SIZE_AIRCRAFT = 5;
     public static final Integer SHIP_SIZE_SUBMARINE = 4;
     public static final Integer SHIP_SIZE_DESTROYER = 3;
@@ -62,29 +43,20 @@ public class Constants {
     public static final String SHIP_NAME_BOAT_1 = "Boat-1";
     public static final String SHIP_NAME_BOAT_2 = "Boat-2";
     /**
-     * Shoot.
-     */
-    /**
-     * States of the shoots.
+     * Shoot constants
      */
     public static final Integer SHOOT_STATE_MISSED = 0;
     public static final Integer SHOOT_STATE_SUCCESSFUL = 1;
-    /**
-     * Control how many previous turns are checked with successful state.
-     */
     public static final Integer SHOOT_CONTROL_SUCCESSFUL = 4;
     /**
-     * Board.
+     * Board constants
      */
     public static final Integer BOARD_SIZE_WIDTH = 12;
     public static final Integer BOARD_SIZE_HEIGHT = 12;
-    /**
-     * Directions to localise the ships.
-     */
     public static final Integer BOARD_DIRECTION_HORIZONTAL = 0;
     public static final Integer BOARD_DIRECTION_VERTICAL = 1;
     /**
-     * Codes for Exceptions.
+     * Codes for message.
      */
     public static final String CODE_000 = "000";
     public static final String CODE_001 = "001";
@@ -98,4 +70,10 @@ public class Constants {
     public static final String CODE_009 = "009";
     public static final String CODE_010 = "010";
     public static final String CODE_011 = "011";
+    public static final String CODE_012 = "012";
+    public static final String CODE_013 = "013";
+    public static final String CODE_014 = "014";
+    public static final String CODE_015 = "015";
+    public static final String CODE_016 = "016";
+    public static final String CODE_017 = "017";
 }

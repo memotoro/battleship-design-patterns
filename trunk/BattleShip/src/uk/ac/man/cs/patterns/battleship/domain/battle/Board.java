@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
@@ -18,8 +14,7 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.ships.Boat;
 
 /**
- * Class that represent a board.
- * A board is one of the main concepts in the game. Is a collection of position with ships in them.
+ * Class that represent a board. A board is one of the main concepts in the game. Is a collection of position with ships in them.
  * @author Guillermo Antonio Toro Bayona
  */
 public class Board implements Observer {
@@ -46,8 +41,7 @@ public class Board implements Observer {
     private List<Position> positionsOccupied;
 
     /**
-     * Constructor.
-     * Initialise the board with all its elements.
+     * Constructor.Initialise the board with all its elements.
      */
     public Board() {
         // Initialise the lists.
@@ -247,8 +241,7 @@ public class Board implements Observer {
     }
 
     /**
-     * Method to update the state of the subject in this observer.
-     * Observer Pattern.
+     * Observer Pattern. Method to update the state of the subject in this observer.
      * @param subject Subject with changes
      */
     public void updateObserver(Subject subject) {

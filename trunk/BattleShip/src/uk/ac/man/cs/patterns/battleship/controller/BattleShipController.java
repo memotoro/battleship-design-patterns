@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.controller;
 
-import java.util.List;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Game;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
- * Controller of the battle ship game.
- * Represent the controller between the View and the domain model.
+ * Controller of the battle ship game. Represent the controller between the View and the domain model.
  * @author Guillermo Antonio Toro Bayona
  */
 public class BattleShipController implements IBattleShipController {
@@ -32,8 +26,7 @@ public class BattleShipController implements IBattleShipController {
     }
 
     /**
-     * Method that represent an attack in the game.
-     * Received the player that is attacking and the coordinated to be attacked.
+     * Method that represent an attack in the game. Received the player that is attacking and the coordinated to be attacked.
      * @param playerReceived Player attacking
      * @param coordinateX Integer coordinate X
      * @param coordinateY Integer coordinate Y

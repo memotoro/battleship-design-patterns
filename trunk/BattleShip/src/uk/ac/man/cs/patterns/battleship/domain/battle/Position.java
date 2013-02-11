@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
 /**
- * Position.
- * Represent a slot in the board with specific coordinates.
+ * Position. Represent a slot in the board with specific coordinates.
  * @author Guillermo Antonio Toro Bayona
  */
 public class Position {
@@ -21,8 +16,7 @@ public class Position {
     private Integer coordinateY;
 
     /**
-     * Constructor.
-     * Received a pair of coordinates.
+     * Constructor. Received a pair of coordinates.
      * @param coordinateX Integer
      * @param coordinateY Integer
      */

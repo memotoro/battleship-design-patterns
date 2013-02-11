@@ -1,25 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * BoardPanel.java
- *
- * Created on 01-Feb-2013, 09:21:59
- */
 package uk.ac.man.cs.patterns.battleship.view;
 
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
- * Class that represent a board for each player
+ * Class that represent a Board in the GUI.
  * @author Guillermo Antonio Toro Bayona
  */
 public class BoardPanel extends JPanel {
@@ -28,6 +23,62 @@ public class BoardPanel extends JPanel {
      * Reference to a player owner of the board
      */
     private Player player;
+    /**
+     * JLabel aircraft
+     */
+    private JLabel jLabelAirCraft;
+    /**
+     * JLabel boat
+     */
+    private JLabel jLabelBoat1;
+    private JLabel jLabelBoat2;
+    /**
+     * JLabel cruiser
+     */
+    private JLabel jLabelCruiser1;
+    private JLabel jLabelCruiser2;
+    /**
+     * JLabel destroyer
+     */
+    private JLabel jLabelDestroyer1;
+    private JLabel jLabelDestroyer2;
+    /**
+     * JLabel notification
+     */
+    private JLabel jLabelNotificationMessage;
+    /**
+     * JLabel player name
+     */
+    private JLabel jLabelPlayerName;
+    /**
+     *  JLabel name label
+     */
+    private JLabel jLabelPlayerNameLabel;
+    /**
+     * JLabel ships available
+     */
+    private JLabel jLabelShipsAvailable;
+    private JLabel jLabelShipsAvailableLabel;
+    /**
+     * JLabel submarine
+     */
+    private JLabel jLabelSubmarine;
+    /**
+     * JPanel grid positions
+     */
+    private JPanel jPanelGridPositions;
+    /**
+     * JPanel info
+     */
+    private JPanel jPanelInfo;
+    /**
+     * JPanel message
+     */
+    private JPanel jPanelMessage;
+    /**
+     * JPanel ships info
+     */
+    private JPanel jPanelShipsInfo;
 
     /**
      * Constructor.
@@ -35,8 +86,85 @@ public class BoardPanel extends JPanel {
      * @param player Reference to player
      */
     public BoardPanel(Player player) {
-        initComponents();
         this.player = player;
+        this.initializeBoardPanel();        
+    }
+
+    private void initializeBoardPanel() {
+        // Set layout
+        this.setLayout(new GridBagLayout());
+        // Create panel info
+        this.jPanelInfo = new JPanel();
+        this.jPanelInfo.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.jPanelInfo.setLayout(new GridLayout(0, 2));
+        // Set properties to the labels in the panel info
+        this.jLabelPlayerNameLabel = new JLabel();
+        this.jLabelPlayerNameLabel.setText(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_013));
+        this.jLabelPlayerName = new JLabel();
+        this.jLabelShipsAvailableLabel = new JLabel();
+        this.jLabelShipsAvailableLabel.setText(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_014));
+        this.jLabelShipsAvailable = new JLabel();
+        // Add labels to the panel info
+        this.jPanelInfo.add(this.jLabelPlayerNameLabel);
+        this.jPanelInfo.add(this.jLabelPlayerName);
+        this.jPanelInfo.add(this.jLabelShipsAvailableLabel);
+        this.jPanelInfo.add(this.jLabelShipsAvailable);
+        // Create panel for ships info
+        this.jPanelShipsInfo = new JPanel();
+        this.jPanelShipsInfo.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.jPanelShipsInfo.setLayout(new GridLayout(0, 4));
+        this.jLabelAirCraft = new JLabel(Constants.SHIP_NAME_AIRCRAFT);
+        this.jLabelAirCraft.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_AIRCRAFT);
+        this.jLabelBoat1 = new JLabel(Constants.SHIP_NAME_BOAT_1);
+        this.jLabelBoat1.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_BOAT_1);
+        this.jLabelBoat2 = new JLabel(Constants.SHIP_NAME_BOAT_2);
+        this.jLabelBoat2.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_BOAT_2);
+        this.jLabelCruiser1 = new JLabel(Constants.SHIP_NAME_CRUISER_1);
+        this.jLabelCruiser1.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_CRUISER_1);
+        this.jLabelCruiser2 = new JLabel(Constants.SHIP_NAME_CRUISER_2);
+        this.jLabelCruiser2.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_CRUISER_2);
+        this.jLabelDestroyer1 = new JLabel(Constants.SHIP_NAME_DESTROYER_1);
+        this.jLabelDestroyer1.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_DESTROYER_1);
+        this.jLabelDestroyer2 = new JLabel(Constants.SHIP_NAME_DESTROYER_2);
+        this.jLabelDestroyer2.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_DESTROYER_2);
+        this.jLabelSubmarine = new JLabel(Constants.SHIP_NAME_SUBMARINE);
+        this.jLabelSubmarine.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_SUBMARINE);
+        // Add labels to the ships info panel
+        this.jPanelShipsInfo.add(this.jLabelAirCraft);
+        this.jPanelShipsInfo.add(this.jLabelBoat1);
+        this.jPanelShipsInfo.add(this.jLabelBoat2);
+        this.jPanelShipsInfo.add(this.jLabelCruiser1);
+        this.jPanelShipsInfo.add(this.jLabelCruiser2);
+        this.jPanelShipsInfo.add(this.jLabelDestroyer1);
+        this.jPanelShipsInfo.add(this.jLabelDestroyer2);
+        this.jPanelShipsInfo.add(this.jLabelSubmarine);
+        // Create the panel grid
+        this.jPanelGridPositions = new JPanel();
+        this.jPanelGridPositions.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        // Create the panel for message
+        this.jPanelMessage = new JPanel();
+        // Set the properties to the labels in the panel message
+        this.jPanelMessage.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.jPanelMessage.setLayout(new GridLayout(0, 1));
+        this.jLabelNotificationMessage = new JLabel();
+        // Add labels        
+        this.jPanelMessage.add(this.jLabelNotificationMessage);
+        // Create constraints
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 30;
+        this.add(this.jPanelInfo, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        this.add(this.jPanelShipsInfo, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        this.add(this.jPanelGridPositions, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        this.add(this.jPanelMessage, gridBagConstraints);
     }
 
     /**
@@ -65,6 +193,31 @@ public class BoardPanel extends JPanel {
         return jButtonSpecificName;
     }
 
+    /**
+     * Method that retrieve a label based on the name
+     * @param playerName Player name
+     * @param shipName String name of the label related with the ship
+     * @return JLabel
+     */
+    public JLabel getJLabelByName(String playerName, String shipName) {
+        // Referenc e to the JLabel
+        JLabel jLabelSpecificName = null;
+        // Iterate for all the GUI componentes in the grid
+        for (Component guiComponent : this.jPanelShipsInfo.getComponents()) {
+            // Validate if is a JLabel
+            if (guiComponent instanceof JLabel) {
+                // Take the object reference
+                jLabelSpecificName = (JLabel) guiComponent;
+                // Validate the name
+                if (jLabelSpecificName.getName().equals(playerName + Constants.GAME_TEXT_SEPARATOR + shipName)) {
+                    break;
+                }
+            }
+        }
+        // Return the object
+        return jLabelSpecificName;
+    }
+
     public void setNotificationMessage(String message) {
         this.jLabelNotificationMessage.setText(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_008) + message);
     }
@@ -77,38 +230,6 @@ public class BoardPanel extends JPanel {
         return jLabelShipsAvailable;
     }
 
-    public JLabel getjLabelAirCraft() {
-        return jLabelAirCraft;
-    }
-
-    public JLabel getjLabelBoat1() {
-        return jLabelBoat1;
-    }
-
-    public JLabel getjLabelBoat2() {
-        return jLabelBoat2;
-    }
-
-    public JLabel getjLabelCruiser1() {
-        return jLabelCruiser1;
-    }
-
-    public JLabel getjLabelCruiser2() {
-        return jLabelCruiser2;
-    }
-
-    public JLabel getjLabelDestroyer1() {
-        return jLabelDestroyer1;
-    }
-
-    public JLabel getjLabelDestroyer2() {
-        return jLabelDestroyer2;
-    }
-
-    public JLabel getjLabelSubmarine() {
-        return jLabelSubmarine;
-    }
-
     public JLabel getjLabelPlayerName() {
         return jLabelPlayerName;
     }
@@ -116,211 +237,4 @@ public class BoardPanel extends JPanel {
     public JPanel getjPanelGridPositions() {
         return jPanelGridPositions;
     }
-
-    /**
-     * This method is called from within the constructor to
-     * initialise the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPanelInfo = new javax.swing.JPanel();
-        jLabelPlayerNameLabel = new javax.swing.JLabel();
-        jLabelPlayerName = new javax.swing.JLabel();
-        jLabelShipsAvailableLabel = new javax.swing.JLabel();
-        jLabelShipsAvailable = new javax.swing.JLabel();
-        jPanelGridPositions = new javax.swing.JPanel();
-        jPanelMessage = new javax.swing.JPanel();
-        jLabelNotificationMessage = new javax.swing.JLabel();
-        jPanelShipsInfo = new javax.swing.JPanel();
-        jLabelAirCraft = new javax.swing.JLabel();
-        jLabelDestroyer1 = new javax.swing.JLabel();
-        jLabelCruiser1 = new javax.swing.JLabel();
-        jLabelBoat1 = new javax.swing.JLabel();
-        jLabelBoat2 = new javax.swing.JLabel();
-        jLabelCruiser2 = new javax.swing.JLabel();
-        jLabelDestroyer2 = new javax.swing.JLabel();
-        jLabelSubmarine = new javax.swing.JLabel();
-
-        jPanelInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabelPlayerNameLabel.setText("Player Name");
-
-        jLabelPlayerName.setText("Player Name");
-
-        jLabelShipsAvailableLabel.setText("Ships Available");
-
-        jLabelShipsAvailable.setText("Ships Available");
-
-        javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
-        jPanelInfo.setLayout(jPanelInfoLayout);
-        jPanelInfoLayout.setHorizontalGroup(
-            jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPlayerNameLabel)
-                    .addComponent(jLabelShipsAvailableLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPlayerName)
-                    .addComponent(jLabelShipsAvailable))
-                .addGap(147, 147, 147))
-        );
-        jPanelInfoLayout.setVerticalGroup(
-            jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPlayerNameLabel)
-                    .addComponent(jLabelPlayerName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelShipsAvailableLabel)
-                    .addComponent(jLabelShipsAvailable))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelGridPositions.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanelGridPositionsLayout = new javax.swing.GroupLayout(jPanelGridPositions);
-        jPanelGridPositions.setLayout(jPanelGridPositionsLayout);
-        jPanelGridPositionsLayout.setHorizontalGroup(
-            jPanelGridPositionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
-        );
-        jPanelGridPositionsLayout.setVerticalGroup(
-            jPanelGridPositionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
-        );
-
-        jPanelMessage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabelNotificationMessage.setText("jLabel1");
-
-        javax.swing.GroupLayout jPanelMessageLayout = new javax.swing.GroupLayout(jPanelMessage);
-        jPanelMessage.setLayout(jPanelMessageLayout);
-        jPanelMessageLayout.setHorizontalGroup(
-            jPanelMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMessageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelNotificationMessage)
-                .addContainerGap(319, Short.MAX_VALUE))
-        );
-        jPanelMessageLayout.setVerticalGroup(
-            jPanelMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMessageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelNotificationMessage)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelShipsInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabelAirCraft.setText("Air Craft");
-
-        jLabelDestroyer1.setText("Destroyer 1");
-
-        jLabelCruiser1.setText("Cruiser 1");
-
-        jLabelBoat1.setText("Boat 1");
-
-        jLabelBoat2.setText("Boat 2");
-
-        jLabelCruiser2.setText("Cruiser 2");
-
-        jLabelDestroyer2.setText("Destroyer 2");
-
-        jLabelSubmarine.setText("Submarine");
-
-        javax.swing.GroupLayout jPanelShipsInfoLayout = new javax.swing.GroupLayout(jPanelShipsInfo);
-        jPanelShipsInfo.setLayout(jPanelShipsInfoLayout);
-        jPanelShipsInfoLayout.setHorizontalGroup(
-            jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelShipsInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelCruiser1)
-                    .addComponent(jLabelAirCraft))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelSubmarine, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCruiser2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelBoat1)
-                    .addComponent(jLabelDestroyer1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDestroyer2)
-                    .addComponent(jLabelBoat2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelShipsInfoLayout.setVerticalGroup(
-            jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelShipsInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelAirCraft)
-                    .addComponent(jLabelSubmarine)
-                    .addComponent(jLabelDestroyer1)
-                    .addComponent(jLabelDestroyer2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelShipsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCruiser1)
-                    .addComponent(jLabelBoat1)
-                    .addComponent(jLabelBoat2)
-                    .addComponent(jLabelCruiser2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanelShipsInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelGridPositions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelMessage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelShipsInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelGridPositions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-    }// </editor-fold>//GEN-END:initComponents
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelAirCraft;
-    private javax.swing.JLabel jLabelBoat1;
-    private javax.swing.JLabel jLabelBoat2;
-    private javax.swing.JLabel jLabelCruiser1;
-    private javax.swing.JLabel jLabelCruiser2;
-    private javax.swing.JLabel jLabelDestroyer1;
-    private javax.swing.JLabel jLabelDestroyer2;
-    private javax.swing.JLabel jLabelNotificationMessage;
-    private javax.swing.JLabel jLabelPlayerName;
-    private javax.swing.JLabel jLabelPlayerNameLabel;
-    private javax.swing.JLabel jLabelShipsAvailable;
-    private javax.swing.JLabel jLabelShipsAvailableLabel;
-    private javax.swing.JLabel jLabelSubmarine;
-    private javax.swing.JPanel jPanelGridPositions;
-    private javax.swing.JPanel jPanelInfo;
-    private javax.swing.JPanel jPanelMessage;
-    private javax.swing.JPanel jPanelShipsInfo;
-    // End of variables declaration//GEN-END:variables
 }

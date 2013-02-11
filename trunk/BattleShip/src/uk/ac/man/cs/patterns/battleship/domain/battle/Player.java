@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.template.Turn;
@@ -33,8 +29,7 @@ public class Player {
     private Board board;
 
     /**
-     * Constructor.
-     * Received the name and the type as parameters.
+     * Constructor.Received the name and the type as parameters.
      * @param name String name.
      * @param type String type.
      */
@@ -49,9 +44,7 @@ public class Player {
 
     /**
      * Method that look for the last successful turn in the previous turns of the player.
-     * This method is control by one Constant that does not allow to go back in the previous turn
-     * more that a specific value.
-     * @return
+     * @return Turn
      */
     public Turn getLastSuccessfulTurn() {
         // Size of the list

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.exceptions;
 
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
@@ -18,8 +14,7 @@ public class BattleShipException extends Exception {
     private String description;
 
     /**
-     * Constructor.
-     * Call super and set description.
+     * Constructor. Call super and set description.
      * @param exceptionCode
      */
     public BattleShipException(String exceptionCode) {
@@ -29,7 +24,7 @@ public class BattleShipException extends Exception {
 
     /**
      * Get the description of the exception.
-     * @return
+     * @return String description
      */
     public String getDescription() {
         return description;

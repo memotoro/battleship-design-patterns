@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.man.cs.patterns.battleship.utils;
 
 import java.util.Properties;
 
 /**
- * PropertiesUtil is a class useful to read information from the files by key.
+ * Singleton Patterns. PropertiesUtil is a class useful to read information from the files by key.
  * Use singleton pattern in order to avoid more that one instance of the class have access to the file.
- * Singleton Patterns.
  * @author Guillermo Antonio Toro Bayona
  */
 public class PropertiesUtil {
@@ -19,14 +14,12 @@ public class PropertiesUtil {
      */
     private Properties properties;
     /**
-     * Static variable of the same type of the class.
-     * Feature of singleton.
+     * Static variable of the same type of the class. Feature of singleton.
      */
     private static PropertiesUtil propertiesUtil;
 
     /**
-     * Constructor.
-     * Call the properties and load the specific file.
+     * Constructor. Call the properties and load the specific file.
      */
     private PropertiesUtil() {
         try {
@@ -41,10 +34,9 @@ public class PropertiesUtil {
     }
 
     /**
-     * Method that give access to the only instance of the class.
+     * Singleton Pattern. Method that give access to the only instance of the class.
      * Initialise the variable if is not created.
-     * Feature of the singleton pattern.
-     * @return
+     * @return PropertiesUtil
      */
     public static PropertiesUtil getInstance() {
         // Validation
