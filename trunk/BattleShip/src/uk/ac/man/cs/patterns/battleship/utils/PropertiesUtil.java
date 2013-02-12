@@ -23,13 +23,13 @@ public class PropertiesUtil {
      */
     private PropertiesUtil() {
         try {
-            // Load the properties
-            this.properties = new Properties();
             // Load the file with specific path.
+            this.properties = new Properties();
             this.properties.load(PropertiesUtil.class.getResourceAsStream(Constants.GAME_PATH_FILE_MESSAGES));
         } catch (Exception ex) {
             // print the trace
             ex.printStackTrace();
+            System.exit(-1);
         }
     }
 

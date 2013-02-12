@@ -14,18 +14,12 @@ import uk.ac.man.cs.patterns.battleship.utils.RandomUtil;
 public class NearbySearching extends PositionSearching {
 
     /**
-     * Player to be attacked. Is necessary to have access to its board.
-     */
-    private Player playerAttacekd;
-
-    /**
      * Constructor. Received a helper position and the player to be attacked.
      * @param positionHelper
      * @param playerAttacked
      */
     public NearbySearching(Position positionHelper, Player playerAttacekd) {
-        super(positionHelper);
-        this.playerAttacekd = playerAttacekd;
+        super(positionHelper, playerAttacekd);
     }
 
     /**
@@ -45,8 +39,7 @@ public class NearbySearching extends PositionSearching {
         // Iterate the possible positions
         for (Position possiblePosition : temporalPositions) {
             // Ask to the board if the possible position is valid
-            if (this.playerAttacekd.getBoard().validatePosition(possiblePosition)) {
-                // If valid, add to the possible positions.
+            if (getPlayerAttacked().getBoard().validatePosition(possiblePosition)) {
                 possiblePositions.add(possiblePosition);
             }
         }
@@ -58,7 +51,6 @@ public class NearbySearching extends PositionSearching {
             Integer index = RandomUtil.generateRandom(possiblePositions.size());
             temporalPosition = possiblePositions.get(index);
         }
-        // Return the possible position to attack.
         return temporalPosition;
     }
 }

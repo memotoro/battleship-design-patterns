@@ -33,11 +33,6 @@ public class BoardPanel extends JPanel {
     private JLabel jLabelBoat1;
     private JLabel jLabelBoat2;
     /**
-     * JLabel cruiser
-     */
-    private JLabel jLabelCruiser1;
-    private JLabel jLabelCruiser2;
-    /**
      * JLabel destroyer
      */
     private JLabel jLabelDestroyer1;
@@ -87,7 +82,7 @@ public class BoardPanel extends JPanel {
      */
     public BoardPanel(Player player) {
         this.player = player;
-        this.initializeBoardPanel();        
+        this.initializeBoardPanel();
     }
 
     private void initializeBoardPanel() {
@@ -115,29 +110,23 @@ public class BoardPanel extends JPanel {
         this.jPanelShipsInfo.setLayout(new GridLayout(0, 4));
         this.jLabelAirCraft = new JLabel(Constants.SHIP_NAME_AIRCRAFT);
         this.jLabelAirCraft.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_AIRCRAFT);
+        this.jLabelSubmarine = new JLabel(Constants.SHIP_NAME_SUBMARINE);
+        this.jLabelSubmarine.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_SUBMARINE);
         this.jLabelBoat1 = new JLabel(Constants.SHIP_NAME_BOAT_1);
         this.jLabelBoat1.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_BOAT_1);
         this.jLabelBoat2 = new JLabel(Constants.SHIP_NAME_BOAT_2);
         this.jLabelBoat2.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_BOAT_2);
-        this.jLabelCruiser1 = new JLabel(Constants.SHIP_NAME_CRUISER_1);
-        this.jLabelCruiser1.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_CRUISER_1);
-        this.jLabelCruiser2 = new JLabel(Constants.SHIP_NAME_CRUISER_2);
-        this.jLabelCruiser2.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_CRUISER_2);
         this.jLabelDestroyer1 = new JLabel(Constants.SHIP_NAME_DESTROYER_1);
         this.jLabelDestroyer1.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_DESTROYER_1);
         this.jLabelDestroyer2 = new JLabel(Constants.SHIP_NAME_DESTROYER_2);
         this.jLabelDestroyer2.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_DESTROYER_2);
-        this.jLabelSubmarine = new JLabel(Constants.SHIP_NAME_SUBMARINE);
-        this.jLabelSubmarine.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + Constants.SHIP_NAME_SUBMARINE);
         // Add labels to the ships info panel
         this.jPanelShipsInfo.add(this.jLabelAirCraft);
+        this.jPanelShipsInfo.add(this.jLabelSubmarine);
         this.jPanelShipsInfo.add(this.jLabelBoat1);
         this.jPanelShipsInfo.add(this.jLabelBoat2);
-        this.jPanelShipsInfo.add(this.jLabelCruiser1);
-        this.jPanelShipsInfo.add(this.jLabelCruiser2);
         this.jPanelShipsInfo.add(this.jLabelDestroyer1);
         this.jPanelShipsInfo.add(this.jLabelDestroyer2);
-        this.jPanelShipsInfo.add(this.jLabelSubmarine);
         // Create the panel grid
         this.jPanelGridPositions = new JPanel();
         this.jPanelGridPositions.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));

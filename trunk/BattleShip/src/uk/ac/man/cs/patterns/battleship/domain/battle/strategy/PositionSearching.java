@@ -1,5 +1,6 @@
 package uk.ac.man.cs.patterns.battleship.domain.battle.strategy;
 
+import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 
 /**
@@ -12,13 +13,18 @@ public abstract class PositionSearching {
      * Position useful to calculate the next position to attack.
      */
     private Position positionHelper;
+    /**
+     * Player to be attacked. Is necessary to have access to its board.
+     */
+    private Player playerAttacked;
 
     /**
      * Constructor. Received a position to be used in the strategies.
      * @param positionHelper
      */
-    public PositionSearching(Position positionHelper) {
+    public PositionSearching(Position positionHelper, Player playerAttacked) {
         this.positionHelper = positionHelper;
+        this.playerAttacked = playerAttacked;
     }
 
     /**
@@ -33,5 +39,13 @@ public abstract class PositionSearching {
      */
     public Position getPositionHelper() {
         return positionHelper;
+    }
+
+    /**
+     * Get the player
+     * @return Player
+     */
+    public Player getPlayerAttacked() {
+        return playerAttacked;
     }
 }

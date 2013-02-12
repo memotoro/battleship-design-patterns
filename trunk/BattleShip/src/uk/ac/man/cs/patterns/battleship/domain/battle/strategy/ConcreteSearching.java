@@ -1,5 +1,6 @@
 package uk.ac.man.cs.patterns.battleship.domain.battle.strategy;
 
+import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 
 /**
@@ -13,8 +14,8 @@ public class ConcreteSearching extends PositionSearching {
      * @param positionHelper
      * @param playerAttacked
      */
-    public ConcreteSearching(Position positionHelper) {
-        super(positionHelper);
+    public ConcreteSearching(Position positionHelper, Player playerAttacked) {
+        super(positionHelper, playerAttacked);
     }
 
     /**

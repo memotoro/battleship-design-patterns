@@ -49,11 +49,9 @@ public class Player {
     public Turn getLastSuccessfulTurn() {
         // Size of the list
         int sizePreviousTurns = this.previousTurns.size();
-        // Turn to be returned
         Turn turn = null;
         // Control step back
         int controlStepsBack = 0;
-        // Loop
         for (int index = sizePreviousTurns - 1; index >= 0; index--) {
             controlStepsBack++;
             turn = this.previousTurns.get(index);
@@ -67,7 +65,6 @@ public class Player {
                 }
             }
         }
-        // Return the turn.
         return turn;
     }
 

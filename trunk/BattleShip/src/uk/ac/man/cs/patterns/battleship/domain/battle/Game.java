@@ -1,18 +1,20 @@
 package uk.ac.man.cs.patterns.battleship.domain.battle;
 
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.battle.template.Turn;
 import uk.ac.man.cs.patterns.battleship.domain.battle.template.HumanTurn;
 import uk.ac.man.cs.patterns.battleship.domain.battle.template.PcTurn;
 import java.util.ArrayList;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import java.util.List;
+import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
  * This class represent a session game.This class control specific steps before one turn was executed.
  * @author Guillermo Antonio Toro Bayona
  */
-public class Game {
+public class Game implements Observer {
 
     /**
      * Integer with the state of the game
@@ -36,14 +38,6 @@ public class Game {
      */
     public Game() {
         this.players = new ArrayList<Player>();
-        // Create a game.
-        this.createGame();
-    }
-
-    /**
-     * Method that create a game.Set the players
-     */
-    private void createGame() {
         // Set the initial state
         this.state = Constants.GAME_STATE_PLAYING;
         // Set the players.
@@ -80,7 +74,6 @@ public class Game {
     private void validateGameStatus() throws BattleShipException {
         // If the game is finished
         if (this.state == Constants.GAME_STATE_FINISHED) {
-            // Raise an exception.
             throw new BattleShipException(Constants.CODE_005);
         }
     }
@@ -93,7 +86,6 @@ public class Game {
     private void validatePlayerInTurn(Player playerReceived) throws BattleShipException {
         // Validate the player attacking
         if (playerReceived == this.playerAttacked) {
-            // Raise an exception.
             throw new BattleShipException(Constants.CODE_003);
         }
     }
@@ -105,7 +97,6 @@ public class Game {
      * @throws BattleShipException
      */
     private void playAttack(Player playerReceived, Position positionReceived) throws BattleShipException {
-        // Turn
         Turn turn = null;
         // If the player is the Human-Player
         if (playerReceived.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
@@ -128,7 +119,6 @@ public class Game {
     private void validateBoardPlayerAttacked() {
         // If the player attacked don't have any ship available.
         if (this.playerAttacked.getBoard().getShipsAvailable() == 0) {
-            // Set the game Finished.
             this.state = Constants.GAME_STATE_FINISHED;
         }
     }
@@ -139,12 +129,10 @@ public class Game {
     private void swapPlayers() {
         // If the player attacking was the Human-Player
         if (this.playerAttacking == this.players.get(0)) {
-            // Swap the player
             this.playerAttacking = this.players.get(1);
             this.playerAttacked = this.players.get(0);
         } // If the player attacking was the Pc-Player
         else {
-            // Swap the player
             this.playerAttacking = this.players.get(0);
             this.playerAttacked = this.players.get(1);
         }
@@ -167,10 +155,16 @@ public class Game {
     }
 
     /**
-     * Get the game status
-     * @return Integer
+     * Observer Pattern. Update of the state of the game based on the ships available.
+     * @param subject Subject
      */
-    public Integer getState() {
-        return state;
+    public void updateObserver(Subject subject) {
+        // Validate observer boad
+        if (subject instanceof Board) {
+            // If the player attacked don't have any ship available.
+            if (((Board) subject).getShipsAvailable() == 0) {
+                this.state = Constants.GAME_STATE_FINISHED;
+            }
+        }
     }
 }

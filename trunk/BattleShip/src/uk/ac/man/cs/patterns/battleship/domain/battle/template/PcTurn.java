@@ -22,7 +22,6 @@ public class PcTurn extends Turn {
     protected Shoot createShoot(Position positionReceived) {
         // Create a position searching
         PositionSearching positionSearching = null;
-        // Create a shoot
         Shoot shoot = null;
         // Validation for the selected shoot.
         boolean validationShoot = false;
@@ -30,7 +29,6 @@ public class PcTurn extends Turn {
         int sizeTurns = getPlayerAttacking().getPreviousTurns().size();
         // While the validation shoot was invalid
         while (!validationShoot) {
-            // If there are previous turns.
             if (sizeTurns > 0) {
                 // Take the last successfull turn from the player if any.
                 Turn previousTurn = getPlayerAttacking().getLastSuccessfulTurn();
@@ -40,7 +38,6 @@ public class PcTurn extends Turn {
                     Position previousPosition = previousTurn.getShoot().getPosition();
                     // Set the new strategy to look for new possible position nearby.
                     positionSearching = new NearbySearching(previousPosition, getPlayerAttacked());
-
                 } // If there are no previous successful shoot.
                 else if (previousTurn.getShoot() != null && previousTurn.getShoot().getState() == Constants.SHOOT_STATE_MISSED) {
                     // Set strategy as random strategy.
@@ -63,7 +60,6 @@ public class PcTurn extends Turn {
                 validationShoot = true;
             }
         }
-        // Return the shoot.
         return shoot;
     }
 }
