@@ -187,7 +187,7 @@ public class BoardDisplayer implements Observer {
             // If the player attacked don't have any ship available.
             if (((Board) subject).getShipsAvailable() == 0) {
                 // Create a popup message
-                this.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + "Memo" + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
+                this.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + this.boardPanel.getPlayer().getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
             }
         }
     }
