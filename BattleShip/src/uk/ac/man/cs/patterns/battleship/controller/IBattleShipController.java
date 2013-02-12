@@ -26,24 +26,4 @@ public interface IBattleShipController {
      * @throws BattleShipException
      */
     public Position attack(Player playerReceived, Integer coordinateX, Integer coordinateY) throws BattleShipException;
-
-    /**
-     * Method that return the number of the ships available in the board of the player
-     * @param player Player of interest.
-     * @return Integer of ships available
-     */
-    public Integer shipsAvailable(Player player);
-
-    /**
-     * Method that return the state of the last shoot
-     * @param player Player of interest
-     * @return Integer with the state of the shoot.
-     */
-    public Integer lastShootState(Player player);
-
-    /**
-     * Method that return the status of the game
-     * @return Integer with the state of the game
-     */
-    public Integer gameStatus();
 }

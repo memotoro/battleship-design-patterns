@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import uk.ac.man.cs.patterns.battleship.domain.battle.Board;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Game;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
@@ -13,6 +14,7 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.ships.Ship;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
+import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 
 /**
  * Class that is in charge of update and draw elements in a specific BoardPanel.
@@ -35,8 +37,7 @@ public class BoardDisplayer implements Observer {
     private GameListener gameListener;
 
     /**
-     * Constructor.
-     * Receive a reference of the frame and the game listener
+     * Constructor.Receive a reference of the frame and the game listener
      * @param battleShipMainFrame BattleShipMainFrame frame
      * @param gameListener GameListener
      */
@@ -66,7 +67,6 @@ public class BoardDisplayer implements Observer {
      * @param shootState Integer shoot state
      */
     public void updateImageIconInButton(Player player, Integer coordinateX, Integer coordinateY, Integer shootState) {
-        // Button
         JButton jButtonToUpdate = null;
         // Get the button based on the name of the player and coordinates
         jButtonToUpdate = this.boardPanel.getJButtonByName(player.getName(), coordinateX, coordinateY);
@@ -83,17 +83,7 @@ public class BoardDisplayer implements Observer {
      * @param message String with message.
      */
     public void updateNotificationMessage(String message) {
-        // Update the label with the given message.
         this.boardPanel.setNotificationMessage(message);
-    }
-
-    /**
-     * Method to update how many ships remain in the board
-     * @param shipAvailable Integer with the amount.
-     */
-    public void updateShipsAvailable(Integer shipAvailable) {
-        // Set the proper number in the label
-        this.boardPanel.getjLabelShipsAvailable().setText(shipAvailable.toString());
     }
 
     /**
@@ -158,13 +148,11 @@ public class BoardDisplayer implements Observer {
                     // Set the action listener to the buttons of the pc player
                     jButtonInGrid.addActionListener(this.gameListener);
                 }
-                // Add the button.
                 this.boardPanel.getjPanelGridPositions().add(jButtonInGrid);
             }
         }
         // Take the ship for the player
         for (Ship ship : this.boardPanel.getPlayer().getBoard().getShips()) {
-            // Update GUI info
             this.updateObserver(ship);
         }
     }
@@ -179,6 +167,7 @@ public class BoardDisplayer implements Observer {
             // Register
             ship.registerObserver(this);
         }
+        player.getBoard().registerObserver(this);
     }
 
     /**
@@ -189,10 +178,17 @@ public class BoardDisplayer implements Observer {
     public void updateObserver(Subject subject) {
         // Validate observer ship
         if (subject instanceof Ship) {
-            // Casting to ship
-            Ship ship = (Ship) subject;
             // Update color of the label
-            this.updateColorLabel(ship);
+            this.updateColorLabel((Ship) subject);
+        } // Validate observer boad
+        else if (subject instanceof Board) {
+            // Update label
+            this.boardPanel.getjLabelShipsAvailable().setText(((Board) subject).getShipsAvailable().toString());
+            // If the player attacked don't have any ship available.
+            if (((Board) subject).getShipsAvailable() == 0) {
+                // Create a popup message
+                this.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + "Memo" + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
+            }
         }
     }
 

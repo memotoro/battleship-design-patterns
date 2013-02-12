@@ -69,7 +69,6 @@ public abstract class Turn {
     private void validateShootCorrectnes(Shoot shoot) throws BattleShipException {
         // Validate the shoot in the board
         if (!(this.getPlayerAttacked().getBoard().validateShootPosition(shoot.getPosition()))) {
-            // Raise an exception
             throw new BattleShipException(Constants.CODE_002);
         }
     }
@@ -90,6 +89,7 @@ public abstract class Turn {
      * Template Pattern. Concrete step in the turn. Once the turn was played and the shoot was updated, the turn is saved in the list of the previous turns.
      */
     private void saveTurn() {
+        // Add turn to the list
         this.playerAttacking.getPreviousTurns().add(this);
     }
 

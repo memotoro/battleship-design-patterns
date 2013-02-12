@@ -34,8 +34,7 @@ public class MessageDialog extends JDialog {
     private MessageDialogListener messageDialogListener;
 
     /**
-     * Constructor.
-     * Message dialog to display message in pop-up windows
+     * Constructor. Message dialog to display message in pop-up windows
      * @param parent JFrame
      * @param modal boolean modal mode
      * @param confirmation boolean confirmation mode

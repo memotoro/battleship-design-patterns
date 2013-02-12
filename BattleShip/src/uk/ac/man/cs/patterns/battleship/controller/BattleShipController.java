@@ -41,30 +41,4 @@ public class BattleShipController implements IBattleShipController {
         // Return the last position attacked in the turn.
         return this.game.getPlayerAttacked().getLastTurn().getShoot().getPosition();
     }
-
-    /**
-     * Method that return the number of the ships available in the board of the player
-     * @param player Player of interest.
-     * @return Integer of ships available
-     */
-    public Integer shipsAvailable(Player player) {
-        return player.getBoard().getShipsAvailable();
-    }
-
-    /**
-     * Method that return the state of the last shoot
-     * @param player Player of interest
-     * @return Integer with the state of the shoot.
-     */
-    public Integer lastShootState(Player player) {
-        return player.getPreviousTurns().get(player.getPreviousTurns().size() - 1).getShoot().getState();
-    }
-
-    /**
-     * Method that return the status of the game
-     * @return Integer with the state of the game
-     */
-    public Integer gameStatus() {
-        return this.game.getState();
-    }
 }

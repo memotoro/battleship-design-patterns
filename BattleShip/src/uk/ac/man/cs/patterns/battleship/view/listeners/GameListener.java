@@ -86,7 +86,7 @@ public class GameListener implements ActionListener {
                     this.drawGame();
                 }
                 this.battleShipMainFrame.refresh();
-            }  // If a button of the board
+            } // If a button of the board
             else {
                 // Take the coordinates of the button
                 Integer coordinateX = Integer.valueOf(infoButton[1]);
@@ -145,29 +145,13 @@ public class GameListener implements ActionListener {
         // Validate player as human player
         if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
             // Update image icon of the button
-            this.boardPcDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), this.battleShipController.lastShootState(activePlayer));
-            // Update ships available
-            this.boardPcDisplayer.updateShipsAvailable(this.battleShipController.shipsAvailable(opponentPlayer));
-            // Update notification message
-            this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_003));
-            this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
+            this.boardPcDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), activePlayer.getLastTurn().getShoot().getState());
+            this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
         } // Validate player as pc player
         else if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
             // Update image icon of the button
-            this.boardPlayerDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), this.battleShipController.lastShootState(activePlayer));
-            // Update ships available
-            this.boardPlayerDisplayer.updateShipsAvailable(this.battleShipController.shipsAvailable(opponentPlayer));
-            // Update notification message
+            this.boardPlayerDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), activePlayer.getLastTurn().getShoot().getState());
             this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_003));
-            this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
-        }
-        // Validate if the game is finished to update proper elements in the view
-        if (this.battleShipController.gameStatus() == Constants.GAME_STATE_FINISHED) {
-            // Create a popup message
-            this.boardPlayerDisplayer.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + activePlayer.getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
-            // Update a message
-            this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005));
-            this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005));
         }
     }
 }

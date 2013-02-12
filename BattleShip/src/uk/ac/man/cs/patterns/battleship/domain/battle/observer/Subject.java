@@ -1,25 +1,48 @@
 package uk.ac.man.cs.patterns.battleship.domain.battle.observer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Observer Pattern. Interface that represent the subject in the observer pattern.
+ * Observer Pattern. Abstract class that represent the subject in the observer pattern.
  * @author Guillermo Antonio Toro Bayona
  */
-public interface Subject {
+public abstract class Subject {
 
     /**
-     * Observer Pattern. Method to register an observer
+     * List of observers
+     */
+    private List<Observer> observers;
+
+    /**
+     * Constructor
+     */
+    protected Subject() {
+        this.observers = new ArrayList<Observer>();
+    }
+
+    /**
+     * Observer Pattern. Method to register observer.
      * @param observer Observer
      */
-    public void registerObserver(Observer observer);
+    public void registerObserver(Observer observer) {
+        this.observers.add(observer);
+    }
 
     /**
-     * Observer Pattern. Method to remove an observer
+     * Observer Pattern. Method to remove observer.
      * @param observer Observer
      */
-    public void removeObserver(Observer observer);
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
 
     /**
-     * Observer Pattern. Method to notify an observer
+     * Observer Pattern. Method to notify observer of changes
      */
-    public void notifyObservers();
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.updateObserver(this);
+        }
+    }
 }

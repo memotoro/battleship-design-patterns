@@ -11,18 +11,12 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
 public class RandomSearching extends PositionSearching {
 
     /**
-     * Player to be attacked. Is necessary to have access to its board.
-     */
-    private Player playerAttacekd;
-
-    /**
      * Constructor. Received a helper position and the player to be attacked.
      * @param positionHelper
      * @param playerAttacked
      */
     public RandomSearching(Position positionHelper, Player playerAttacked) {
-        super(positionHelper);
-        this.playerAttacekd = playerAttacked;
+        super(positionHelper, playerAttacked);
     }
 
     /**
@@ -31,6 +25,6 @@ public class RandomSearching extends PositionSearching {
      */
     public Position searchPositionToAttack() {
         // Call the board for available position.
-        return this.playerAttacekd.getBoard().getAvailablePosition();
+        return getPlayerAttacked().getBoard().getAvailablePosition();
     }
 }

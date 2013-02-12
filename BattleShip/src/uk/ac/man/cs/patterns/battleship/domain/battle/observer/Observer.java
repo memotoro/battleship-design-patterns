@@ -7,7 +7,7 @@ package uk.ac.man.cs.patterns.battleship.domain.battle.observer;
 public interface Observer {
 
     /**
-     * Method to update the observers
+     * Observer Pattern. Method to update the observers
      * @param subject
      */
     public void updateObserver(Subject subject);

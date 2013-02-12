@@ -33,13 +33,11 @@ public class BattleShipMainFrame extends JFrame {
      * Constructor
      */
     public BattleShipMainFrame() {
-        // Create the instances of the GameListener
         this.gameListener = new GameListener(this);
         // Display properties
         this.setSize(1200, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        // Prepare
         this.createNewGameButtonPanel();
     }
 

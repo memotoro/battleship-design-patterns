@@ -19,12 +19,11 @@ public class HumanTurn extends Turn {
     @Override
     protected Shoot createShoot(Position positionReceived) {
         // Create a concrete strategy with the position to be attacked.
-        PositionSearching positionSearching = new ConcreteSearching(positionReceived);
+        PositionSearching positionSearching = new ConcreteSearching(positionReceived, getPlayerAttacked());
         // Create a shot and set the position.
         Shoot shoot = new Shoot(positionSearching);
         // Executed the searching strategy method.
         shoot.searchPosition();
-        // Return shoot.
         return shoot;
     }
 }
