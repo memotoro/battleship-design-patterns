@@ -28,6 +28,10 @@ public class BoardDisplayer implements Observer {
      */
     private BoardPanel boardPanel;
     /**
+     * Reference to a player owner of the board
+     */
+    private Player player;
+    /**
      * BattleShipMainFrame frame of the game
      */
     private BattleShipMainFrame battleShipMainFrame;
@@ -53,8 +57,9 @@ public class BoardDisplayer implements Observer {
      */
     public void drawInitialBoard(Game game, Player player) {
         // Register observer
+        this.player = player;
         this.registerObserver(player);
-        this.boardPanel = new BoardPanel(player);
+        this.boardPanel = new BoardPanel(player.getName());
         this.battleShipMainFrame.getjPanelGame().add(this.boardPanel);
         this.initializeBoardPanel();
     }
@@ -91,7 +96,7 @@ public class BoardDisplayer implements Observer {
      * @return Player
      */
     public Player getPlayer() {
-        return this.boardPanel.getPlayer();
+        return this.player;
     }
 
     /**
@@ -120,8 +125,8 @@ public class BoardDisplayer implements Observer {
      */
     private void initializeBoardPanel() {
         // Set the values based on the information of the game, player
-        this.boardPanel.getjLabelPlayerName().setText(this.boardPanel.getPlayer().getName());
-        this.boardPanel.getjLabelShipsAvailable().setText(this.boardPanel.getPlayer().getBoard().getShipsAvailable().toString());
+        this.boardPanel.getjLabelPlayerName().setText(this.player.getName());
+        this.boardPanel.getjLabelShipsAvailable().setText(this.player.getBoard().getShipsAvailable().toString());
         this.boardPanel.setNotificationMessage("");
         this.boardPanel.getjPanelGridPositions().setLayout(new GridLayout(Constants.BOARD_SIZE_HEIGHT, Constants.BOARD_SIZE_WIDTH));
         // Create the button with specific coordinates and player name
@@ -134,17 +139,17 @@ public class BoardDisplayer implements Observer {
                 // Create a defaul image icon
                 ImageIcon imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
                 // Validate if the player is the human player and if the position is occupied.
-                if (this.boardPanel.getPlayer().getBoard().getPositionsOccupied().contains(position)
-                        && this.boardPanel.getPlayer().getType().contains(Constants.GAME_PLAYER_TYPE_HUMAN)) {
+                if (this.player.getBoard().getPositionsOccupied().contains(position)
+                        && this.player.getType().contains(Constants.GAME_PLAYER_TYPE_HUMAN)) {
                     // Set new image icon with the ship position
                     imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
                 }
                 // Set the icon to the button
                 jButtonInGrid.setIcon(imageIcon);
                 // Set the name of the button for the player
-                jButtonInGrid.setName(this.boardPanel.getPlayer().getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
+                jButtonInGrid.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
                 // Validate if the player is pc
-                if (this.boardPanel.getPlayer().getType().contains(Constants.GAME_PLAYER_TYPE_PC)) {
+                if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_PC)) {
                     // Set the action listener to the buttons of the pc player
                     jButtonInGrid.addActionListener(this.gameListener);
                 }
@@ -152,8 +157,8 @@ public class BoardDisplayer implements Observer {
             }
         }
         // Take the ship for the player
-        for (Ship ship : this.boardPanel.getPlayer().getBoard().getShips()) {
-            this.updateObserver(ship);
+        for (Ship ship : this.player.getBoard().getShips()) {
+            this.update(ship);
         }
     }
 
@@ -175,7 +180,7 @@ public class BoardDisplayer implements Observer {
      * Observer Pattern.
      * @param subject
      */
-    public void updateObserver(Subject subject) {
+    public void update(Subject subject) {
         // Validate observer ship
         if (subject instanceof Ship) {
             // Update color of the label
@@ -187,7 +192,7 @@ public class BoardDisplayer implements Observer {
             // If the player attacked don't have any ship available.
             if (((Board) subject).getShipsAvailable() == 0) {
                 // Create a popup message
-                this.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + this.boardPanel.getPlayer().getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
+                this.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + this.player.getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
             }
         }
     }
@@ -199,7 +204,7 @@ public class BoardDisplayer implements Observer {
     private void updateColorLabel(Ship ship) {
         JLabel labelToUpdate = null;
         // Get the jlabel with the name of the player and the ship
-        labelToUpdate = this.boardPanel.getJLabelByName(this.boardPanel.getPlayer().getName(), ship.getName());
+        labelToUpdate = this.boardPanel.getJLabelByName(this.player.getName(), ship.getName());
         // Validate states
         if (ship.getState() == Constants.SHIP_STATE_OK) {
             labelToUpdate.setForeground(Color.green);

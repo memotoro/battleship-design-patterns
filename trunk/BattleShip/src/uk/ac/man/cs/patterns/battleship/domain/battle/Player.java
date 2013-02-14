@@ -73,12 +73,7 @@ public class Player {
      * @return
      */
     public Turn getLastTurn() {
-        // Validate size and return
-        if (this.previousTurns.size() > 0) {
-            return this.previousTurns.get(this.previousTurns.size() - 1);
-        } else {
-            return null;
-        }
+        return this.previousTurns.get(this.previousTurns.size() - 1);
     }
 
     /**

@@ -58,7 +58,7 @@ public class BattleShipMainFrame extends JFrame {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 15;
+        gridBagConstraints.ipady = 10;
         this.add(this.jPanelButton, gridBagConstraints);
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;

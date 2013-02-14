@@ -34,10 +34,8 @@ public class PcTurn extends Turn {
                 Turn previousTurn = getPlayerAttacking().getLastSuccessfulTurn();
                 // If the previous turn correspond to a successful shoot
                 if (previousTurn.getShoot().getState() == Constants.SHOOT_STATE_SUCCESSFUL) {
-                    // Create a position with that successful shoot.
-                    Position previousPosition = previousTurn.getShoot().getPosition();
                     // Set the new strategy to look for new possible position nearby.
-                    positionSearching = new NearbySearching(previousPosition, getPlayerAttacked());
+                    positionSearching = new NearbySearching(previousTurn.getShoot().getPosition(), getPlayerAttacked());
                 } // If there are no previous successful shoot.
                 else if (previousTurn.getShoot() != null && previousTurn.getShoot().getState() == Constants.SHOOT_STATE_MISSED) {
                     // Set strategy as random strategy.

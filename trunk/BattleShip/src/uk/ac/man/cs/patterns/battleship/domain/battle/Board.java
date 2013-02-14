@@ -2,15 +2,12 @@ package uk.ac.man.cs.patterns.battleship.domain.battle;
 
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.RandomUtil;
-import uk.ac.man.cs.patterns.battleship.domain.ships.Submarine;
-import uk.ac.man.cs.patterns.battleship.domain.ships.Destroyer;
 import uk.ac.man.cs.patterns.battleship.domain.ships.Ship;
-import uk.ac.man.cs.patterns.battleship.domain.ships.AirCraft;
 import java.util.ArrayList;
 import java.util.List;
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
-import uk.ac.man.cs.patterns.battleship.domain.ships.Boat;
+import uk.ac.man.cs.patterns.battleship.domain.ships.ShipFactory;
 
 /**
  * Class that represent a board. A board is one of the main concepts in the game. Is a collection of position with ships in them.
@@ -70,17 +67,15 @@ public class Board extends Subject implements Observer {
      */
     private void createShips() {
         // Create Ships
-        this.ships.add(new AirCraft(Constants.SHIP_NAME_AIRCRAFT));
-        this.ships.add(new Submarine(Constants.SHIP_NAME_SUBMARINE));
-        this.ships.add(new Boat(Constants.SHIP_NAME_BOAT_1));
-        this.ships.add(new Boat(Constants.SHIP_NAME_BOAT_2));
-        this.ships.add(new Destroyer(Constants.SHIP_NAME_DESTROYER_1));
-        this.ships.add(new Destroyer(Constants.SHIP_NAME_DESTROYER_2));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_AIRCRAFT));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_SUBMARINE));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_BOAT));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_CRUISER));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_DESTROYER));
         // Register observer
         for (Ship ship : this.ships) {
             ship.registerObserver(this);
         }
-        // Add to the list.
         this.shipsAvailable = this.ships.size();
     }
 
@@ -103,14 +98,14 @@ public class Board extends Subject implements Observer {
                 // Loop against the ship size
                 for (int i = 0; i < ship.getSize(); i++) {
                     // Create a initial position
-                    Position position = new Position(x, y);
+                    Position position = null;
                     // Validate the random direction
                     if (randomPosition == Constants.BOARD_DIRECTION_HORIZONTAL) {
                         // Increase the coordinate
-                        position.setCoordinateX(x + i);
+                        position = new Position(x + i, y);
                     } else if (randomPosition == Constants.BOARD_DIRECTION_VERTICAL) {
                         // Increase the coordinate
-                        position.setCoordinateY(y + i);
+                        position = new Position(x, y + i);
                     }
                     // Validate if the positions is valid
                     if (this.positions.contains(position) && !positionsOccupied.contains(position)) {
@@ -139,12 +134,8 @@ public class Board extends Subject implements Observer {
      */
     public boolean validatePosition(Position positionToValidate) {
         // If the position is in the board and is not attacked.
-        if (this.positions.contains(positionToValidate)
-                && !this.positionsAttacked.contains(positionToValidate)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (this.positions.contains(positionToValidate)
+                && !this.positionsAttacked.contains(positionToValidate));
     }
 
     /**
@@ -223,7 +214,7 @@ public class Board extends Subject implements Observer {
      * Observer Pattern. Method to update the observers
      * @param subject
      */
-    public void updateObserver(Subject subject) {
+    public void update(Subject subject) {
         // Validate observer ship
         if (subject instanceof Ship) {
             // Validate the state of the ship
