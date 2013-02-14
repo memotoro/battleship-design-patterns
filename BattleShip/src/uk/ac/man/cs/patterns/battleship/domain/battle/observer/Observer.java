@@ -10,5 +10,5 @@ public interface Observer {
      * Observer Pattern. Method to update the observers
      * @param subject
      */
-    public void updateObserver(Subject subject);
+    public void update(Subject subject);
 }

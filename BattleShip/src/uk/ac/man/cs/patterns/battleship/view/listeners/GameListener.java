@@ -13,7 +13,6 @@ import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 import uk.ac.man.cs.patterns.battleship.view.BattleShipMainFrame;
 import uk.ac.man.cs.patterns.battleship.view.BoardDisplayer;
-import uk.ac.man.cs.patterns.battleship.view.MessageDialog;
 
 /**
  * Class that implement action listener to catch every action in the panels and frames
@@ -41,10 +40,6 @@ public class GameListener implements ActionListener {
      * BoardDisplayer for pc player
      */
     private BoardDisplayer boardPcDisplayer;
-    /**
-     * Message dialog
-     */
-    private MessageDialog messageDialog;
 
     /**
      * Constructor.
@@ -131,7 +126,7 @@ public class GameListener implements ActionListener {
             this.processAction(this.boardPcDisplayer.getPlayer(), this.boardPlayerDisplayer.getPlayer(), position);
         } catch (BattleShipException ex) {
             // Update the message
-            this.boardPcDisplayer.updateNotificationMessage(ex.getDescription());
+            this.boardPlayerDisplayer.updateNotificationMessage(ex.getDescription());
         }
     }
 

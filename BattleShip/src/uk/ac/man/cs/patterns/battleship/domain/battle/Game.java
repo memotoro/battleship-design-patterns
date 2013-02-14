@@ -46,6 +46,9 @@ public class Game implements Observer {
         // Set the first turn to the human player.
         this.playerAttacking = this.players.get(0);
         this.playerAttacked = this.players.get(1);
+        // Register observer
+        this.playerAttacking.getBoard().registerObserver(this);
+        this.playerAttacked.getBoard().registerObserver(this);
     }
 
     /**
@@ -61,8 +64,6 @@ public class Game implements Observer {
         this.validatePlayerInTurn(playerReceived);
         // Create an attack
         this.playAttack(playerReceived, positionReceived);
-        // Validate the board of the player attacked
-        this.validateBoardPlayerAttacked();
         // Interchange the players
         this.swapPlayers();
     }
@@ -114,16 +115,6 @@ public class Game implements Observer {
     }
 
     /**
-     * Method to validate the board of the attacked player
-     */
-    private void validateBoardPlayerAttacked() {
-        // If the player attacked don't have any ship available.
-        if (this.playerAttacked.getBoard().getShipsAvailable() == 0) {
-            this.state = Constants.GAME_STATE_FINISHED;
-        }
-    }
-
-    /**
      * Interchange the players.
      */
     private void swapPlayers() {
@@ -158,7 +149,7 @@ public class Game implements Observer {
      * Observer Pattern. Update of the state of the game based on the ships available.
      * @param subject Subject
      */
-    public void updateObserver(Subject subject) {
+    public void update(Subject subject) {
         // Validate observer boad
         if (subject instanceof Board) {
             // If the player attacked don't have any ship available.

@@ -34,27 +34,11 @@ public class Position {
     }
 
     /**
-     * Set Coordinate X
-     * @param coordinateX Integer
-     */
-    public void setCoordinateX(Integer coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    /**
      * Get Coordinate Y
      * @return Integer
      */
     public Integer getCoordinateY() {
         return coordinateY;
-    }
-
-    /**
-     * Set Coordinate Y
-     * @param coordinateY Integer
-     */
-    public void setCoordinateY(Integer coordinateY) {
-        this.coordinateY = coordinateY;
     }
 
     /**
@@ -64,17 +48,11 @@ public class Position {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (obj == null || !(obj instanceof Position)) {
             return false;
         }
         final Position other = (Position) obj;
-        if (this.coordinateX != other.coordinateX) {
-            return false;
-        }
-        if (this.coordinateY != other.coordinateY) {
+        if (this.coordinateX != other.coordinateX || this.coordinateY != other.coordinateY) {
             return false;
         }
         return true;
