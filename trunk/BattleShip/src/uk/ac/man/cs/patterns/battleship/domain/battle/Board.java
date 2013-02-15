@@ -81,13 +81,13 @@ public class Board extends Subject implements Observer {
      * Method that localise each ship in the board with specific positions
      */
     private void localizeShipsInBoard() {
+        List<Position> positionsOccupied = new ArrayList<Position>();
         // Loop for each ships
         for (Ship ship : this.ships) {
             // Validation of ship alocated
             boolean shipAllocated = false;
             // List of possible positios for the ships
-            List<Position> possiblePositions = new ArrayList<Position>();
-            List<Position> positionsOccupied = new ArrayList<Position>();
+            List<Position> possiblePositions = new ArrayList<Position>();            
             while (!shipAllocated) {
                 // Take a random number to determine the direction.
                 Integer randomPosition = RandomUtil.generateRandom(2);
