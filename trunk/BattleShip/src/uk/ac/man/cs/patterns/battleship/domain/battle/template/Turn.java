@@ -46,7 +46,7 @@ public abstract class Turn {
         // Create a shoot.
         this.shoot = this.createShoot(positionReceived);
         // Validation for the previous created shoot.
-        this.validateShootCorrectnes(this.shoot);
+        this.validateShootCorrect(this.shoot);
         // Execute shoot
         this.executeShoot();
         // Save the turn in the historic list of turns.
@@ -66,7 +66,7 @@ public abstract class Turn {
      * @param shoot Shoot to validate
      * @throws BattleShipException
      */
-    private void validateShootCorrectnes(Shoot shoot) throws BattleShipException {
+    private void validateShootCorrect(Shoot shoot) throws BattleShipException {
         // Validate the shoot in the board
         if (!(this.getPlayerAttacked().getBoard().validateShootPosition(shoot.getPosition()))) {
             throw new BattleShipException(Constants.CODE_002);

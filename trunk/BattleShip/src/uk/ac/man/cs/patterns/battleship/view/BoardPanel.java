@@ -19,28 +19,16 @@ import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
 public class BoardPanel extends JPanel {
 
     /**
-     * JLabel ships
+     * JLabel for display info in the panel
      */
     private JLabel jLabelAirCraft;
     private JLabel jLabelBoat;
     private JLabel jLabelDestroyer;
     private JLabel jLabelCruiser;
     private JLabel jLabelSubmarine;
-    /**
-     * JLabel notification
-     */
     private JLabel jLabelNotificationMessage;
-    /**
-     * JLabel player name
-     */
     private JLabel jLabelPlayerName;
-    /**
-     *  JLabel name label
-     */
     private JLabel jLabelPlayerNameLabel;
-    /**
-     * JLabel ships available
-     */
     private JLabel jLabelShipsAvailable;
     private JLabel jLabelShipsAvailableLabel;
     /**

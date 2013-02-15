@@ -2,12 +2,11 @@ package uk.ac.man.cs.patterns.battleship.domain.battle;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Subject;
 import uk.ac.man.cs.patterns.battleship.domain.battle.template.Turn;
-import uk.ac.man.cs.patterns.battleship.domain.battle.template.HumanTurn;
-import uk.ac.man.cs.patterns.battleship.domain.battle.template.PcTurn;
 import java.util.ArrayList;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import java.util.List;
 import uk.ac.man.cs.patterns.battleship.domain.battle.observer.Observer;
+import uk.ac.man.cs.patterns.battleship.domain.battle.template.TurnFactory;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
@@ -98,16 +97,7 @@ public class Game implements Observer {
      * @throws BattleShipException
      */
     private void playAttack(Player playerReceived, Position positionReceived) throws BattleShipException {
-        Turn turn = null;
-        // If the player is the Human-Player
-        if (playerReceived.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
-            // Create specific Human Turn.
-            turn = new HumanTurn();
-        } // If the player is the Pc-Player
-        else if (playerReceived.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
-            // Create specific Pc turn
-            turn = new PcTurn();
-        }
+        Turn turn = TurnFactory.createTurn(playerReceived);
         // Set the specific roles
         turn.setPlayers(this.playerAttacking, this.playerAttacked);
         // Play the turn for the player.

@@ -50,7 +50,7 @@ public abstract class Ship extends Subject {
      */
     public boolean validatePositionAttacked(Position positionAttacked) {
         // Validate if the position attacked is part of the positions occupied.
-        if (this.positionsOccupied.contains(positionAttacked)) {
+        if (this.validatePositionOccupied(positionAttacked)) {
             // Remove the position from the occupied and copy to the list of attacked positions.
             this.positionsOccupied.remove(positionAttacked);
             this.positionsAttacked.add(positionAttacked);
@@ -67,6 +67,15 @@ public abstract class Ship extends Subject {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method to validate if a position is occupied by the ship
+     * @param position Position to validate
+     * @return boolean with validation
+     */
+    public boolean validatePositionOccupied(Position position) {
+        return this.positionsOccupied.contains(position);
     }
 
     /**
@@ -91,14 +100,6 @@ public abstract class Ship extends Subject {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Get positions occupied
-     * @return List of positions
-     */
-    public List<Position> getPositionsAttacked() {
-        return positionsAttacked;
     }
 
     /**

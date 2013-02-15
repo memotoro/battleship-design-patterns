@@ -25,11 +25,11 @@ public class PcTurn extends Turn {
         Shoot shoot = null;
         // Validation for the selected shoot.
         boolean validationShoot = false;
-        // Size of the previous turn list.
-        int sizeTurns = getPlayerAttacking().getPreviousTurns().size();
+        // Size of the previous turn list as a control random flag
+        int randomFlag = getPlayerAttacking().getPreviousTurns().size();
         // While the validation shoot was invalid
         while (!validationShoot) {
-            if (sizeTurns > 0) {
+            if (randomFlag > 0) {
                 // Take the last successfull turn from the player if any.
                 Turn previousTurn = getPlayerAttacking().getLastSuccessfulTurn();
                 // If the previous turn correspond to a successful shoot
@@ -52,7 +52,7 @@ public class PcTurn extends Turn {
             // If the shoot take a position invalid
             if (shoot.getPosition() == null) {
                 // Change the variable to force that in the next iteration take a random shoot.
-                sizeTurns = 0;
+                randomFlag = 0;
             } else {
                 // Change the validation to break the loop.
                 validationShoot = true;

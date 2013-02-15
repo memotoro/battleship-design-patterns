@@ -58,7 +58,7 @@ public class BoardDisplayer implements Observer {
     public void drawInitialBoard(Game game, Player player) {
         // Register observer
         this.player = player;
-        this.registerObserver(player);
+        this.registerObserverInShips(player);
         this.boardPanel = new BoardPanel(player.getName());
         this.battleShipMainFrame.getjPanelGame().add(this.boardPanel);
         this.initializeBoardPanel();
@@ -127,7 +127,7 @@ public class BoardDisplayer implements Observer {
         // Set the values based on the information of the game, player
         this.boardPanel.getjLabelPlayerName().setText(this.player.getName());
         this.boardPanel.getjLabelShipsAvailable().setText(this.player.getBoard().getShipsAvailable().toString());
-        this.boardPanel.setNotificationMessage("");
+        this.boardPanel.setNotificationMessage(Constants.GAME_TEXT_SEPARATOR);
         this.boardPanel.getjPanelGridPositions().setLayout(new GridLayout(Constants.BOARD_SIZE_HEIGHT, Constants.BOARD_SIZE_WIDTH));
         // Create the button with specific coordinates and player name
         for (int y = 0; y < Constants.BOARD_SIZE_HEIGHT; y++) {
@@ -139,7 +139,7 @@ public class BoardDisplayer implements Observer {
                 // Create a defaul image icon
                 ImageIcon imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
                 // Validate if the player is the human player and if the position is occupied.
-                if (this.player.getBoard().getPositionsOccupied().contains(position)
+                if (this.player.getBoard().validatePosition(position)
                         && this.player.getType().contains(Constants.GAME_PLAYER_TYPE_HUMAN)) {
                     // Set new image icon with the ship position
                     imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
@@ -166,13 +166,31 @@ public class BoardDisplayer implements Observer {
      * Method to register the observer
      * @param player Player
      */
-    private void registerObserver(Player player) {
+    private void registerObserverInShips(Player player) {
         // Take the ship for the player
         for (Ship ship : player.getBoard().getShips()) {
             // Register
             ship.registerObserver(this);
         }
         player.getBoard().registerObserver(this);
+    }
+
+    /**
+     * Method that update the Colour of the label based the state of the ship
+     * @param ship Ship received from the Observer
+     */
+    private void updateColorLabel(Ship ship) {
+        JLabel labelToUpdate = null;
+        // Get the jlabel with the name of the player and the ship
+        labelToUpdate = this.boardPanel.getJLabelByName(this.player.getName(), ship.getName());
+        // Validate states
+        if (ship.getState() == Constants.SHIP_STATE_OK) {
+            labelToUpdate.setForeground(Color.green);
+        } else if (ship.getState() == Constants.SHIP_STATE_ATTACKED) {
+            labelToUpdate.setForeground(Color.orange);
+        } else if (ship.getState() == Constants.SHIP_STATE_DETROYED) {
+            labelToUpdate.setForeground(Color.red);
+        }
     }
 
     /**
@@ -194,24 +212,6 @@ public class BoardDisplayer implements Observer {
                 // Create a popup message
                 this.displayPopUpMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_005) + " " + this.player.getName() + " " + PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_006));
             }
-        }
-    }
-
-    /**
-     * Method that update the Colour of the label based the state of the ship
-     * @param ship Ship received from the Observer
-     */
-    private void updateColorLabel(Ship ship) {
-        JLabel labelToUpdate = null;
-        // Get the jlabel with the name of the player and the ship
-        labelToUpdate = this.boardPanel.getJLabelByName(this.player.getName(), ship.getName());
-        // Validate states
-        if (ship.getState() == Constants.SHIP_STATE_OK) {
-            labelToUpdate.setForeground(Color.green);
-        } else if (ship.getState() == Constants.SHIP_STATE_ATTACKED) {
-            labelToUpdate.setForeground(Color.orange);
-        } else if (ship.getState() == Constants.SHIP_STATE_DETROYED) {
-            labelToUpdate.setForeground(Color.red);
         }
     }
 }

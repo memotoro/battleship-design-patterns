@@ -7,7 +7,7 @@ import uk.ac.man.cs.patterns.battleship.controller.BattleShipController;
 import uk.ac.man.cs.patterns.battleship.controller.IBattleShipController;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Game;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
-import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
+import uk.ac.man.cs.patterns.battleship.domain.battle.Shoot;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 import uk.ac.man.cs.patterns.battleship.utils.PropertiesUtil;
@@ -87,10 +87,10 @@ public class GameListener implements ActionListener {
                 Integer coordinateX = Integer.valueOf(infoButton[1]);
                 Integer coordinateY = Integer.valueOf(infoButton[2]);
                 try {
-                    // Call the controller and take the position back
-                    Position position = this.battleShipController.attack(this.boardPlayerDisplayer.getPlayer(), coordinateX, coordinateY);
+                    // Call the controller and take the shoot back
+                    Shoot shoot = this.battleShipController.attack(this.boardPlayerDisplayer.getPlayer(), coordinateX, coordinateY);
                     // Process the action in GUI
-                    this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardPcDisplayer.getPlayer(), position);
+                    this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardPcDisplayer.getPlayer(), shoot);
                     // Take the action from the pc player
                     this.actionPcEvent();
                 } catch (BattleShipException ex) {
@@ -120,10 +120,10 @@ public class GameListener implements ActionListener {
      */
     private void actionPcEvent() {
         try {
-            // Call the controller with the pc player and take the position.
-            Position position = this.battleShipController.attack(this.boardPcDisplayer.getPlayer(), null, null);
+            // Call the controller with the pc player and take the shoot.
+            Shoot shoot = this.battleShipController.attack(this.boardPcDisplayer.getPlayer(), null, null);
             // Process the action in GUI
-            this.processAction(this.boardPcDisplayer.getPlayer(), this.boardPlayerDisplayer.getPlayer(), position);
+            this.processAction(this.boardPcDisplayer.getPlayer(), this.boardPlayerDisplayer.getPlayer(), shoot);
         } catch (BattleShipException ex) {
             // Update the message
             this.boardPlayerDisplayer.updateNotificationMessage(ex.getDescription());
@@ -136,16 +136,16 @@ public class GameListener implements ActionListener {
      * @param opponentPlayer
      * @param position
      */
-    private void processAction(Player activePlayer, Player opponentPlayer, Position position) {
+    private void processAction(Player activePlayer, Player opponentPlayer, Shoot shoot) {
         // Validate player as human player
         if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
             // Update image icon of the button
-            this.boardPcDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), activePlayer.getLastTurn().getShoot().getState());
+            this.boardPcDisplayer.updateImageIconInButton(opponentPlayer, shoot.getPosition().getCoordinateX(), shoot.getPosition().getCoordinateY(), shoot.getState());
             this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
         } // Validate player as pc player
         else if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
             // Update image icon of the button
-            this.boardPlayerDisplayer.updateImageIconInButton(opponentPlayer, position.getCoordinateX(), position.getCoordinateY(), activePlayer.getLastTurn().getShoot().getState());
+            this.boardPlayerDisplayer.updateImageIconInButton(opponentPlayer, shoot.getPosition().getCoordinateX(), shoot.getPosition().getCoordinateY(), shoot.getState());
             this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_003));
         }
     }

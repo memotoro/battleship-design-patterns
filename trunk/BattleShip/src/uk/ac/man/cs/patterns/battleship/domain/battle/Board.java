@@ -24,11 +24,10 @@ public class Board extends Subject implements Observer {
      */
     private Integer shipsAvailable;
     /**
-     * List of positions in the board, attacked and occupied
+     * List of positions in the board, attacked 
      */
     private List<Position> positions;
-    private List<Position> positionsAttacked;
-    private List<Position> positionsOccupied;
+    private List<Position> positionsVisited;
 
     /**
      * Constructor.Initialise the board with all its elements.
@@ -37,8 +36,7 @@ public class Board extends Subject implements Observer {
         // Initialise the lists.
         this.ships = new ArrayList<Ship>();
         this.positions = new ArrayList<Position>();
-        this.positionsAttacked = new ArrayList<Position>();
-        this.positionsOccupied = new ArrayList<Position>();
+        this.positionsVisited = new ArrayList<Position>();
         // Initialise the board
         this.initializeBoard();
         // Create the Ships
@@ -69,9 +67,9 @@ public class Board extends Subject implements Observer {
         // Create Ships
         this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_AIRCRAFT));
         this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_SUBMARINE));
-        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_BOAT));
-        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_CRUISER));
         this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_DESTROYER));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_CRUISER));
+        this.ships.add(ShipFactory.createShip(Constants.SHIP_NAME_BOAT));
         // Register observer
         for (Ship ship : this.ships) {
             ship.registerObserver(this);
@@ -89,6 +87,7 @@ public class Board extends Subject implements Observer {
             boolean shipAllocated = false;
             // List of possible positios for the ships
             List<Position> possiblePositions = new ArrayList<Position>();
+            List<Position> positionsOccupied = new ArrayList<Position>();
             while (!shipAllocated) {
                 // Take a random number to determine the direction.
                 Integer randomPosition = RandomUtil.generateRandom(2);
@@ -99,12 +98,10 @@ public class Board extends Subject implements Observer {
                 for (int i = 0; i < ship.getSize(); i++) {
                     // Create a initial position
                     Position position = null;
-                    // Validate the random direction
+                    // Validate the random direction and Increase the coordinate
                     if (randomPosition == Constants.BOARD_DIRECTION_HORIZONTAL) {
-                        // Increase the coordinate
                         position = new Position(x + i, y);
                     } else if (randomPosition == Constants.BOARD_DIRECTION_VERTICAL) {
-                        // Increase the coordinate
                         position = new Position(x, y + i);
                     }
                     // Validate if the positions is valid
@@ -120,9 +117,8 @@ public class Board extends Subject implements Observer {
                     }
                 }
             }
-            // Add the possible positions to the occupied positions in the board.
-            this.positionsOccupied.addAll(possiblePositions);
-            // Set the positions occpuied by the ship.
+            // Set the positions occupied by the ship.
+            positionsOccupied.addAll(possiblePositions);
             ship.setPositionsOccupied(possiblePositions);
         }
     }
@@ -135,7 +131,7 @@ public class Board extends Subject implements Observer {
     public boolean validatePosition(Position positionToValidate) {
         // If the position is in the board and is not attacked.
         return (this.positions.contains(positionToValidate)
-                && !this.positionsAttacked.contains(positionToValidate));
+                && !this.positionsVisited.contains(positionToValidate));
     }
 
     /**
@@ -149,7 +145,7 @@ public class Board extends Subject implements Observer {
             // Delete the position from the available positions in he board.
             this.positions.remove(positionToValidate);
             // Add the position in the attacked positions.
-            this.positionsAttacked.add(positionToValidate);
+            this.positionsVisited.add(positionToValidate);
             return true;
         } else {
             return false;
@@ -187,19 +183,28 @@ public class Board extends Subject implements Observer {
     }
 
     /**
+     * Method to validate position occupied by a ship
+     * @param positionReceived Position
+     * @return boolean with the validation result
+     */
+    public boolean validatePositionsOccupied(Position positionReceived) {
+        boolean validation = false;
+        // Loop for each ship and validate the position received
+        for (Ship ship : this.ships) {
+            if (ship.validatePositionOccupied(positionReceived)) {
+                validation = true;
+                break;
+            }
+        }
+        return validation;
+    }
+
+    /**
      * Get the ships available
      * @return Integer
      */
     public Integer getShipsAvailable() {
         return shipsAvailable;
-    }
-
-    /**
-     * Get the List of positions occupied
-     * @return List of Positions
-     */
-    public List<Position> getPositionsOccupied() {
-        return positionsOccupied;
     }
 
     /**

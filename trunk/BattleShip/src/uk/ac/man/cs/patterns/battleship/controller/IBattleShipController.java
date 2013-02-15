@@ -2,7 +2,7 @@ package uk.ac.man.cs.patterns.battleship.controller;
 
 import uk.ac.man.cs.patterns.battleship.domain.battle.Game;
 import uk.ac.man.cs.patterns.battleship.domain.battle.Player;
-import uk.ac.man.cs.patterns.battleship.domain.battle.Position;
+import uk.ac.man.cs.patterns.battleship.domain.battle.Shoot;
 import uk.ac.man.cs.patterns.battleship.exceptions.BattleShipException;
 
 /**
@@ -22,8 +22,8 @@ public interface IBattleShipController {
      * @param playerReceived Player attacking
      * @param coordinateX Integer coordinate X
      * @param coordinateY Integer coordinate Y
-     * @return Position attacked
+     * @return Shoot attacked
      * @throws BattleShipException
      */
-    public Position attack(Player playerReceived, Integer coordinateX, Integer coordinateY) throws BattleShipException;
+    public Shoot attack(Player playerReceived, Integer coordinateX, Integer coordinateY) throws BattleShipException;
 }
