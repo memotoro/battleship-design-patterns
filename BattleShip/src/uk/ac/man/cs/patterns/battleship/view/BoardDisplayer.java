@@ -139,7 +139,7 @@ public class BoardDisplayer implements Observer {
                 // Create a defaul image icon
                 ImageIcon imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SEA);
                 // Validate if the player is the human player and if the position is occupied.
-                if (this.player.getBoard().validatePosition(position)
+                if (this.player.getBoard().validatePositionsOccupied(position)
                         && this.player.getType().contains(Constants.GAME_PLAYER_TYPE_HUMAN)) {
                     // Set new image icon with the ship position
                     imageIcon = new ImageIcon(Constants.GAME_PATH_IMAGE_SHIP);
