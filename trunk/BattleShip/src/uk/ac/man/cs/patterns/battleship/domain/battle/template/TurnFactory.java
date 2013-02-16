@@ -19,10 +19,10 @@ public class TurnFactory {
         if (playerReceived.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
             // Create specific Human Turn.
             return new HumanTurn();
-        } // If the player is the Pc-Player
+        } // If the player is the Computer Player
         else {
-            // Create specific Pc turn
-            return new PcTurn();
+            // Create specific Computer turn
+            return new ComputerTurn();
         }
     }
 }

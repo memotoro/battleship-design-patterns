@@ -8,10 +8,10 @@ import uk.ac.man.cs.patterns.battleship.domain.battle.strategy.RandomSearching;
 import uk.ac.man.cs.patterns.battleship.utils.Constants;
 
 /**
- * Template Pattern.PC Turn. Concrete turn for human player. This class implement the abstract method from the abstract Turn.
+ * Template Pattern. Computer Turn. Concrete turn for human player. This class implement the abstract method from the abstract Turn.
  * @author Guillermo Antonio Toro Bayona
  */
-public class PcTurn extends Turn {
+public class ComputerTurn extends Turn {
 
     /**
      * Concrete implementation of the create shoot step.

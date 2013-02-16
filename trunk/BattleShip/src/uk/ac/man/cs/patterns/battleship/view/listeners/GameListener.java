@@ -37,9 +37,9 @@ public class GameListener implements ActionListener {
      */
     private BoardDisplayer boardPlayerDisplayer;
     /**
-     * BoardDisplayer for pc player
+     * BoardDisplayer for computer player
      */
-    private BoardDisplayer boardPcDisplayer;
+    private BoardDisplayer boardComputerDisplayer;
 
     /**
      * Constructor.
@@ -52,8 +52,8 @@ public class GameListener implements ActionListener {
         this.battleShipMainFrame = battleShipMainFrame;
         // Create one board displayer for human player
         this.boardPlayerDisplayer = new BoardDisplayer(battleShipMainFrame, this);
-        // Create one board displayer for pc player
-        this.boardPcDisplayer = new BoardDisplayer(this.battleShipMainFrame, this);
+        // Create one board displayer for computer player
+        this.boardComputerDisplayer = new BoardDisplayer(this.battleShipMainFrame, this);
     }
 
     /**
@@ -90,12 +90,12 @@ public class GameListener implements ActionListener {
                     // Call the controller and take the shoot back
                     Shoot shoot = this.battleShipController.attack(this.boardPlayerDisplayer.getPlayer(), coordinateX, coordinateY);
                     // Process the action in GUI
-                    this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardPcDisplayer.getPlayer(), shoot);
-                    // Take the action from the pc player
-                    this.actionPcEvent();
+                    this.processAction(this.boardPlayerDisplayer.getPlayer(), this.boardComputerDisplayer.getPlayer(), shoot);
+                    // Take the action from the computer player
+                    this.actionComputerEvent();
                 } catch (BattleShipException ex) {
                     // Update the message
-                    this.boardPcDisplayer.updateNotificationMessage(ex.getDescription());
+                    this.boardComputerDisplayer.updateNotificationMessage(ex.getDescription());
                 }
             }
         }
@@ -111,19 +111,19 @@ public class GameListener implements ActionListener {
         this.battleShipMainFrame.prepare();
         // Draw the board for player
         this.boardPlayerDisplayer.drawInitialBoard(this.game, this.game.getPlayerAttacking());
-        // Draw the board for pc
-        this.boardPcDisplayer.drawInitialBoard(this.game, this.game.getPlayerAttacked());
+        // Draw the board for computer
+        this.boardComputerDisplayer.drawInitialBoard(this.game, this.game.getPlayerAttacked());
     }
 
     /**
-     * Method that simulate the turn of the PC
+     * Method that simulate the turn of the Computer
      */
-    private void actionPcEvent() {
+    private void actionComputerEvent() {
         try {
-            // Call the controller with the pc player and take the shoot.
-            Shoot shoot = this.battleShipController.attack(this.boardPcDisplayer.getPlayer(), null, null);
+            // Call the controller with the computer player and take the shoot.
+            Shoot shoot = this.battleShipController.attack(this.boardComputerDisplayer.getPlayer(), null, null);
             // Process the action in GUI
-            this.processAction(this.boardPcDisplayer.getPlayer(), this.boardPlayerDisplayer.getPlayer(), shoot);
+            this.processAction(this.boardComputerDisplayer.getPlayer(), this.boardPlayerDisplayer.getPlayer(), shoot);
         } catch (BattleShipException ex) {
             // Update the message
             this.boardPlayerDisplayer.updateNotificationMessage(ex.getDescription());
@@ -140,10 +140,10 @@ public class GameListener implements ActionListener {
         // Validate player as human player
         if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_HUMAN)) {
             // Update image icon of the button
-            this.boardPcDisplayer.updateImageIconInButton(opponentPlayer, shoot.getPosition().getCoordinateX(), shoot.getPosition().getCoordinateY(), shoot.getState());
-            this.boardPcDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
-        } // Validate player as pc player
-        else if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_PC)) {
+            this.boardComputerDisplayer.updateImageIconInButton(opponentPlayer, shoot.getPosition().getCoordinateX(), shoot.getPosition().getCoordinateY(), shoot.getState());
+            this.boardComputerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_004));
+        } // Validate player as Computer player
+        else if (activePlayer.getType().equals(Constants.GAME_PLAYER_TYPE_COMPUTER)) {
             // Update image icon of the button
             this.boardPlayerDisplayer.updateImageIconInButton(opponentPlayer, shoot.getPosition().getCoordinateX(), shoot.getPosition().getCoordinateY(), shoot.getState());
             this.boardPlayerDisplayer.updateNotificationMessage(PropertiesUtil.getInstance().getMessageByCode(Constants.CODE_003));
