@@ -11,9 +11,9 @@ public class Constants {
      */
     public static final Integer GAME_STATE_PLAYING = 0;
     public static final Integer GAME_STATE_FINISHED = 1;
-    public static final String GAME_PLAYER_NAME_PC = "Pc";
+    public static final String GAME_PLAYER_NAME_COMPUTER = "Computer";
     public static final String GAME_PLAYER_NAME_HUMAN = "Player";
-    public static final String GAME_PLAYER_TYPE_PC = "PcPlayer";
+    public static final String GAME_PLAYER_TYPE_COMPUTER = "ComputerPlayer";
     public static final String GAME_PLAYER_TYPE_HUMAN = "HumanPlayer";
     public static final String GAME_PATH_FILE_MESSAGES = "/uk/ac/man/cs/patterns/battleship/view/resources/messages.properties";
     public static final String GAME_PATH_IMAGE_SEA = "src/uk/ac/man/cs/patterns/battleship/view/resources/sea.png";

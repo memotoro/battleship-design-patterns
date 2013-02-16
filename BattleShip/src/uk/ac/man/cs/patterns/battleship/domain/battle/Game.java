@@ -41,7 +41,7 @@ public class Game implements Observer {
         this.state = Constants.GAME_STATE_PLAYING;
         // Set the players.
         this.players.add(new Player(Constants.GAME_PLAYER_NAME_HUMAN, Constants.GAME_PLAYER_TYPE_HUMAN));
-        this.players.add(new Player(Constants.GAME_PLAYER_NAME_PC, Constants.GAME_PLAYER_TYPE_PC));
+        this.players.add(new Player(Constants.GAME_PLAYER_NAME_COMPUTER, Constants.GAME_PLAYER_TYPE_COMPUTER));
         // Set the first turn to the human player.
         this.playerAttacking = this.players.get(0);
         this.playerAttacked = this.players.get(1);
@@ -108,11 +108,11 @@ public class Game implements Observer {
      * Interchange the players.
      */
     private void swapPlayers() {
-        // If the player attacking was the Human-Player
+        // If the player attacking was the HumanPlayer
         if (this.playerAttacking == this.players.get(0)) {
             this.playerAttacking = this.players.get(1);
             this.playerAttacked = this.players.get(0);
-        } // If the player attacking was the Pc-Player
+        } // If the player attacking was the ComputerPlayer
         else {
             this.playerAttacking = this.players.get(0);
             this.playerAttacked = this.players.get(1);

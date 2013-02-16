@@ -148,9 +148,9 @@ public class BoardDisplayer implements Observer {
                 jButtonInGrid.setIcon(imageIcon);
                 // Set the name of the button for the player
                 jButtonInGrid.setName(this.player.getName() + Constants.GAME_TEXT_SEPARATOR + x + Constants.GAME_TEXT_SEPARATOR + y);
-                // Validate if the player is pc
-                if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_PC)) {
-                    // Set the action listener to the buttons of the pc player
+                // Validate if the player is computer
+                if (this.player.getType().contains(Constants.GAME_PLAYER_TYPE_COMPUTER)) {
+                    // Set the action listener to the buttons of the computer player
                     jButtonInGrid.addActionListener(this.gameListener);
                 }
                 this.boardPanel.getjPanelGridPositions().add(jButtonInGrid);

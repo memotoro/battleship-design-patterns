@@ -55,7 +55,7 @@ public abstract class Turn {
 
     /**
      * Template Pattern. Abstract method of the Template. This method must be implemented by every type of player.
-     * The Human-Player and the PC-Player executed this method in different ways.   
+     * The HumanPlayer and the ComputerPlayer executed this method in different ways.
      * @param positionReceived  Position received to be attacked
      * @return Shoot created.
      */
